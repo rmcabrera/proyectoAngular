@@ -1,3 +1,7 @@
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
+
 export const environment = {
     firebase : {
         apiKey : "AIzaSyCyDosyJxwuY7Oz7Xa4v9Y5Ej06CsSMtNw",

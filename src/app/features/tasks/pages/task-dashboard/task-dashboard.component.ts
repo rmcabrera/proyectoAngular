@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { collection, getDocs, doc, setDoc, getFirestore } from 'firebase/firestore';
 
 @Component({
   selector: 'app-task-dashboard',
@@ -6,49 +7,105 @@ import { Component } from '@angular/core';
   styleUrls: ['./task-dashboard.component.css'],
 })
 export class TaskDashboardComponent {
+ 
   tasks = [
-    { id: 1, title: 'Tarea 1', completed: false },
-    { id: 2, title: 'Tarea 2', completed: true },
-    { id: 3, title: 'Tarea 3', completed: false },
+    { id: 1, title: 'Tarea 1', priority: 'Alta', completed: false, dueDate: new Date('2023-12-01') },
+    { id: 2, title: 'Tarea 2', priority: 'Media', completed: true, dueDate: new Date('2023-11-30') },
+    { id: 3, title: 'Tarea 3', priority: 'Baja', completed: false, dueDate: new Date('2023-12-10') },
   ];
-  
-  // Variables para el cuadro de diálogo
-  display: boolean = false;
-  newTask = { title: '', completed: false };
 
-  // Opciones para el dropdown de estado
+  constructor() {
+    
+    const db = getFirestore();
+
+    getDocs(collection(db, 'tareas')).then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, ' => ', doc.data());
+      });
+    });
+
+
+    setDoc(doc(db, 'tareas', 'new-doc'), {
+      titulo: 'Nuevo documento',
+      estado : 'false',
+      prioridad: 'Baja'
+    });
+  }
+ 
+
+  filteredTasks = [...this.tasks];
+
+  display: boolean = false;
+  newTask = { title: '', priority: '', completed: false, dueDate: null };
+
+  searchQuery: string = '';
+  selectedPriority: string = '';
+  selectedStatus: string = '';
+
+  priorityOptions = [
+    { label: 'Alta', value: 'Alta' },
+    { label: 'Media', value: 'Media' },
+    { label: 'Baja', value: 'Baja' },
+  ];
+
   statusOptions = [
     { label: 'Pendiente', value: false },
     { label: 'Completada', value: true },
   ];
 
-  // Mostrar el cuadro de diálogo
+
   showDialog() {
+    this.newTask = { title: '', priority: '', completed: false, dueDate: null }; 
     this.display = true;
   }
 
-  // Ocultar el cuadro de diálogo
+
   hideDialog() {
     this.display = false;
   }
 
-  // Guardar la nueva tarea
+
   saveTask() {
-    if (this.newTask.title.trim()) {
-      const id = this.tasks.length + 1;
-      this.tasks.push({ id, ...this.newTask });
-      this.newTask = { title: '', completed: false };
+    if (this.newTask.title.trim() && this.newTask.priority) {
+      const id = this.tasks.length > 0 ? Math.max(...this.tasks.map((t) => t.id)) + 1 : 1;
+      this.filteredTasks = [...this.tasks]; 
       this.hideDialog();
     }
   }
 
-  // Editar una tarea
+
   onEditTask(task: any) {
-    // Lógica para editar la tarea
+    this.newTask = { ...task }; 
+    this.display = true;
   }
 
-  // Eliminar una tarea
+ 
   onDeleteTask(id: number) {
     this.tasks = this.tasks.filter((task) => task.id !== id);
+    this.filteredTasks = [...this.tasks]; 
+  }
+
+
+  applyFilters() {
+    this.filteredTasks = this.tasks.filter((task) => {
+      const matchesSearch = this.searchQuery
+        ? task.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+        : true;
+
+      const matchesPriority = this.selectedPriority
+        ? task.priority === this.selectedPriority
+        : true;
+
+ 
+      return matchesSearch && matchesPriority ;
+    });
+  }
+
+
+  clearFilters() {
+    this.searchQuery = '';
+    this.selectedPriority = '';
+    this.selectedStatus = '';
+    this.filteredTasks = [...this.tasks]; 
   }
 }

@@ -1,14 +1,12 @@
-/* Estilos del contenedor principal */
 .dashboard {
   padding: 20px;
-  background-color: #f4f4f4; /* Fondo claro */
-  min-height: 100vh; /* Asegura que cubra toda la altura de la pantalla */
+  background-color: #f4f4f4; 
+  min-height: 100vh; 
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* Títulos */
 h1 {
   color: #5a5a5a;
   font-size: 2rem;
@@ -22,10 +20,9 @@ h2 {
   text-align: center;
 }
 
-/* Tabla */
 .p-table {
   width: 100%;
-  max-width: 900px; /* Limita el ancho */
+  max-width: 900px; 
   margin-top: 20px;
 }
 
@@ -41,7 +38,6 @@ h2 {
   padding: 10px;
 }
 
-/* Botones */
 .p-button {
   margin: 5px;
 }
@@ -55,7 +51,6 @@ h2 {
   background-color: #218838;
 }
 
-/* Diálogo */
 .p-dialog {
   width: 100%;
   max-width: 500px;

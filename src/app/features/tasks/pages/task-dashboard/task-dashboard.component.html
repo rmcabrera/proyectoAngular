@@ -2,7 +2,41 @@
   <h1>Gestor de Tareas</h1>
   <p>Bienvenido al Gestor de Tareas. Aquí puedes administrar tus actividades diarias.</p>
 
-  <!-- Botón para agregar nueva tarea -->
+  <div class="filters">
+    <h3>Filtros</h3>
+    <p-inputText 
+      pInputText 
+      [(ngModel)]="searchQuery" 
+      placeholder="Buscar tarea..." 
+      icon="pi pi-search" 
+      class="p-inputtext-sm"
+    ></p-inputText>
+
+    <p-dropdown 
+      [(ngModel)]="selectedPriority" 
+      [options]="priorityOptions" 
+      optionLabel="label" 
+      placeholder="Filtrar por prioridad"
+      class="p-dropdown-sm"
+    ></p-dropdown>
+
+    <p-dropdown 
+      [(ngModel)]="selectedStatus" 
+      [options]="statusOptions" 
+      optionLabel="label" 
+      placeholder="Filtrar por estado"
+      class="p-dropdown-sm"
+    ></p-dropdown>
+
+    <button 
+      pButton 
+      label="Limpiar Filtros" 
+      icon="pi pi-refresh" 
+      class="p-button-secondary" 
+      (click)="clearFilters()"
+    ></button>
+  </div>
+
   <button 
     pButton 
     type="button" 
@@ -12,14 +46,15 @@
     (click)="showDialog()"
   ></button>
 
-  <!-- Tabla de tareas -->
   <h2>Lista de Tareas</h2>
-  <p-table [value]="tasks" responsiveLayout="scroll" class="p-table">
+  <p-table [value]="filteredTasks" responsiveLayout="scroll" class="p-table">
     <ng-template pTemplate="header">
       <tr>
         <th>ID</th>
         <th>Título</th>
+        <th>Prioridad</th>
         <th>Estado</th>
+        <th>Fecha de Vencimiento</th>
         <th>Acciones</th>
       </tr>
     </ng-template>
@@ -27,7 +62,9 @@
       <tr>
         <td>{{ task.id }}</td>
         <td>{{ task.title }}</td>
+        <td>{{ task.priority }}</td>
         <td>{{ task.completed ? 'Completada' : 'Pendiente' }}</td>
+        <td>{{ task.dueDate | date:'dd/MM/yyyy' }}</td>
         <td>
           <button 
             pButton 
@@ -49,9 +86,8 @@
     </ng-template>
   </p-table>
 
-  <!-- Diálogo -->
   <p-dialog 
-    header="Agregar Tarea" 
+    header="Agregar/Editar Tarea" 
     [(visible)]="display" 
     [modal]="true" 
     [closable]="false" 
@@ -59,7 +95,24 @@
   >
     <div class="p-field">
       <label for="taskTitle">Título</label>
-      <input id="taskTitle" type="text" pInputText [(ngModel)]="newTask.title" />
+      <input 
+        id="taskTitle" 
+        type="text" 
+        pInputText 
+        [(ngModel)]="newTask.title" 
+        required
+      />
+    </div>
+    <div class="p-field">
+      <label for="taskPriority">Prioridad</label>
+      <p-dropdown 
+        id="taskPriority" 
+        [(ngModel)]="newTask.priority" 
+        [options]="priorityOptions" 
+        optionLabel="label" 
+        placeholder="Seleccionar Prioridad"
+      ></p-dropdown>
+      
     </div>
     <div class="p-field">
       <label for="taskStatus">Estado</label>
@@ -70,6 +123,15 @@
         optionLabel="label" 
         placeholder="Seleccionar Estado"
       ></p-dropdown>
+    </div>
+    <div class="p-field">
+      <label for="taskDueDate">Fecha de Vencimiento</label>
+      <p-calendar 
+        id="taskDueDate" 
+        [(ngModel)]="newTask.dueDate" 
+        dateFormat="dd/mm/yy" 
+        placeholder="Seleccionar Fecha"
+      ></p-calendar>
     </div>
     <p-footer>
       <button 

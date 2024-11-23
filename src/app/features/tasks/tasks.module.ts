@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskRoutingModule } from './tasks-routing.module';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule , ReactiveFormsModule} from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
@@ -20,6 +20,7 @@ import { TaskService } from '../../core/services/task/task.service';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
    
     TaskRoutingModule, 
     AuthRoutingModule,

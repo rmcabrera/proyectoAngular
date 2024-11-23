@@ -8,9 +8,9 @@ import { AuthService } from '../../../../core/services/auth/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  email: string = ''; // Almacena el email ingresado
-  password: string = ''; // Almacena la contraseña ingresada
-  rememberMe: boolean = false; // Almacena el estado de la casilla "Remember Me"
+  email: string = 'rcabrerac@gmail.com'; 
+  password: string = 'sunatdevelop'; 
+  rememberMe: boolean = false; 
   errorMessage : string = '';
 
   constructor( private authService: AuthService, private router: Router) {
@@ -23,7 +23,6 @@ export class LoginComponent {
         localStorage.setItem('token', token || '');
         console.log('Inicio de sesión exitoso. Token:', token);
         this.router.navigate(['/tasks']);
-        // Redirige o realiza acciones adicionales después del inicio de sesión
       } catch (error) {
         this.errorMessage = 'Error al iniciar sesión. Intente de nuevo.';
         console.error('Error al iniciar sesión:', error);
