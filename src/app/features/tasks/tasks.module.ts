@@ -1,0 +1,31 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TaskRoutingModule } from './tasks-routing.module';
+
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+
+import { TaskDashboardComponent } from './pages/task-dashboard/task-dashboard.component';
+import { AuthRoutingModule } from '../auth/auth-routing.module';
+
+@NgModule({
+  declarations: [
+    TaskDashboardComponent
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+   
+    TaskRoutingModule, 
+    AuthRoutingModule,
+
+    ButtonModule,  
+    TableModule,  
+    DialogModule,
+    DropdownModule,
+  ],
+})
+export class TaskModule {}

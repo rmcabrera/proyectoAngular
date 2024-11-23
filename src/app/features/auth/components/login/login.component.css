@@ -1,0 +1,67 @@
+/* Contenedor principal */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #6eb1f7, #4776e6);
+  padding: 16px;
+}
+
+/* Tarjeta del formulario */
+.login-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Títulos y textos */
+h2 {
+  margin-bottom: 1rem;
+  color: #333;
+  font-weight: bold;
+}
+
+p {
+  margin-bottom: 2rem;
+  color: #555;
+}
+
+/* Inputs */
+.p-input-icon-left {
+  width: 100%;
+}
+
+.p-inputtext {
+  border-radius: 6px;
+}
+
+/* Footer del formulario */
+.p-field-checkbox {
+  display: flex;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+  color: #4776e6;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Botón */
+.p-button-primary {
+  width: 100%;
+  margin-top: 1rem;
+  border-radius: 8px;
+  background-color: #4776e6;
+}
+
+.p-button-primary:hover {
+  background-color: #365bb3;
+}

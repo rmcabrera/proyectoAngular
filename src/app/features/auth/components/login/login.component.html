@@ -1,0 +1,59 @@
+<div class="login-container">
+  <div class="login-card p-shadow-3">
+    <h2 class="p-text-center">Log in</h2>
+    <p class="p-text-center">Please enter your details</p>
+    <form (ngSubmit)="onLogin()" class="p-fluid">
+      <!-- Campo de Email -->
+      <div class="p-field">
+        <span class="p-input-icon-left">
+          <i class="pi pi-envelope"></i>
+          <input
+            id="email"
+            type="email"
+            pInputText
+            placeholder="Email"
+            [(ngModel)]="email"
+            name="email"
+          />
+        </span>
+      </div>
+
+      <!-- Campo de Contraseña -->
+      <div class="p-field">
+        <span class="p-input-icon-left">
+          <i class="pi pi-lock"></i>
+          <input
+            id="password"
+            type="password"
+            pInputText
+            placeholder="Password"
+            [(ngModel)]="password"
+            name="password"
+          />
+        </span>
+      </div>
+
+      <!-- Footer del Formulario -->
+      <div class="p-d-flex p-jc-between p-ai-center p-mb-3">
+        <div class="p-field-checkbox">
+          <p-checkbox
+            inputId="remember"
+            binary="true"
+            [(ngModel)]="rememberMe"
+            name="rememberMe"
+          ></p-checkbox>
+          <label for="remember">Remember Me</label>
+        </div>
+        <a href="#" class="p-text-secondary">Reset password</a>
+      </div>
+
+      <!-- Botón de Login -->
+      <button
+        type="submit"
+        pButton
+        label="Log In"
+        class="p-button p-button-rounded p-button-primary p-button-lg"
+      ></button>
+    </form>
+  </div>
+</div>

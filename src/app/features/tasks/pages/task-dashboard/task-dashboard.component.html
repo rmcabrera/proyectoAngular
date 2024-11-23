@@ -1,0 +1,93 @@
+<div class="dashboard">
+  <h1>Gestor de Tareas</h1>
+  <p>Bienvenido al Gestor de Tareas. Aquí puedes administrar tus actividades diarias.</p>
+
+  <!-- Botón para agregar nueva tarea -->
+  <button 
+    pButton 
+    type="button" 
+    label="Añadir Nueva Tarea" 
+    icon="pi pi-plus" 
+    class="p-button-success" 
+    (click)="showDialog()"
+  ></button>
+
+  <!-- Tabla de tareas -->
+  <h2>Lista de Tareas</h2>
+  <p-table [value]="tasks" responsiveLayout="scroll" class="p-table">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-task>
+      <tr>
+        <td>{{ task.id }}</td>
+        <td>{{ task.title }}</td>
+        <td>{{ task.completed ? 'Completada' : 'Pendiente' }}</td>
+        <td>
+          <button 
+            pButton 
+            type="button" 
+            label="Editar" 
+            icon="pi pi-pencil" 
+            (click)="onEditTask(task)"
+          ></button>
+          <button 
+            pButton 
+            type="button" 
+            label="Eliminar" 
+            icon="pi pi-trash" 
+            class="p-button-danger" 
+            (click)="onDeleteTask(task.id)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <!-- Diálogo -->
+  <p-dialog 
+    header="Agregar Tarea" 
+    [(visible)]="display" 
+    [modal]="true" 
+    [closable]="false" 
+    class="p-dialog"
+  >
+    <div class="p-field">
+      <label for="taskTitle">Título</label>
+      <input id="taskTitle" type="text" pInputText [(ngModel)]="newTask.title" />
+    </div>
+    <div class="p-field">
+      <label for="taskStatus">Estado</label>
+      <p-dropdown 
+        id="taskStatus" 
+        [(ngModel)]="newTask.completed" 
+        [options]="statusOptions" 
+        optionLabel="label" 
+        placeholder="Seleccionar Estado"
+      ></p-dropdown>
+    </div>
+    <p-footer>
+      <button 
+        pButton 
+        type="button" 
+        label="Guardar" 
+        icon="pi pi-check" 
+        class="p-button-success" 
+        (click)="saveTask()"
+      ></button>
+      <button 
+        pButton 
+        type="button" 
+        label="Cancelar" 
+        icon="pi pi-times" 
+        class="p-button-secondary" 
+        (click)="hideDialog()"
+      ></button>
+    </p-footer>
+  </p-dialog>
+</div>
