@@ -10,10 +10,12 @@ import { DropdownModule } from 'primeng/dropdown';
 
 import { TaskDashboardComponent } from './pages/task-dashboard/task-dashboard.component';
 import { AuthRoutingModule } from '../auth/auth-routing.module';
+import { TaskService } from '../../core/services/task/task.service';
 
 @NgModule({
   declarations: [
-    TaskDashboardComponent
+    TaskDashboardComponent,
+
   ],
   imports: [
     CommonModule,
@@ -27,5 +29,6 @@ import { AuthRoutingModule } from '../auth/auth-routing.module';
     DialogModule,
     DropdownModule,
   ],
+
 })
 export class TaskModule {}
