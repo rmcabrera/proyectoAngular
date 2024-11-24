@@ -14,13 +14,15 @@ import { AvatarModule } from 'primeng/avatar';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { BadgeModule } from 'primeng/badge';
 import { MenuModule } from 'primeng/menu';
+import { TimestampToDatePipe } from './pipes/timestamp-to-date.pipe';
 
 @NgModule({
   declarations: [
     MainLayoutComponent,
     HeaderComponent,
     WelcomeComponent,
-    SidebarComponent
+    SidebarComponent,
+    TimestampToDatePipe
   ],
   imports: [
     CommonModule,
@@ -45,7 +47,8 @@ import { MenuModule } from 'primeng/menu';
     AvatarModule, 
     SidebarComponent,
     BadgeModule,
-    MenuModule
+    MenuModule,
+    TimestampToDatePipe
   ],
 })
 export class SharedsModule { }

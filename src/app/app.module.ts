@@ -34,6 +34,9 @@ import { PanelModule } from 'primeng/panel';
     PanelModule,
     AngularFireModule.initializeApp(environment.firebase),    
   ],
+  exports : [
+    
+  ],
   providers: [
     AuthService, 
     AuthGuard,

@@ -1,155 +1,128 @@
-<div class="dashboard">
-  <h1>Gestor de Tareas</h1>
-  <p>Bienvenido al Gestor de Tareas. Aquí puedes administrar tus actividades diarias.</p>
+<!-- Toolbar con botón para agregar nueva tarea -->
+<p-toolbar>
+  <div class="p-toolbar-group-start">
+    <label class="text-2xl">Listado de Tareas</label>
+  </div>
+  <div class="p-toolbar-group-end">
+    <p-button icon="pi pi-plus" label="Nueva Tarea" class="mr-2" (click)="showDialog()"></p-button>
+  </div>
+</p-toolbar>
 
-  <div class="filters">
-    <h3>Filtros</h3>
-    <p-inputText 
+<!-- Tabla de tareas -->
+<p-table 
+  [value]="tasks" 
+  [paginator]="true" 
+  [rows]="10" 
+  [responsive]="true" 
+  class="p-table">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>ID</th>
+      <th>Título</th>
+      <th>Descripcion</th>
+      <th>Prioridad</th>
+      <th>Estado</th>
+      <th>Fecha de Creación</th>
+      <th>Fecha de Vencimiento</th>
+      <th>Acciones</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-task>
+    <tr>
+      <td>{{ task.id }}</td>
+      <td>{{ task.titulo }}</td>
+      <td>{{ task.descripcion }}</td>
+      <td>{{ task.prioridad }}</td>
+      <td>{{ task.estado }}</td>
+      <td>{{ task.creacion | timestampToDate}}</td>
+      <td>{{ task.vencimiento | timestampToDate}}</td>
+      <td>
+        <button 
+          pButton 
+          type="button" 
+          icon="pi pi-pencil" 
+          class="p-button-info" 
+          (click)="onEditTask(task)">
+        </button>
+        <button 
+          pButton 
+          type="button" 
+          icon="pi pi-trash" 
+          class="p-button-danger" 
+          (click)="onDeleteTask(task.id)">
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<!-- Diálogo para agregar/editar tarea -->
+<p-dialog 
+  header="Agregar/Editar Tarea" 
+  [(visible)]="display" 
+  [modal]="true" 
+  [closable]="false" 
+  class="p-dialog">
+  
+  <div class="p-field">
+    <label for="taskTitle">Título</label>
+    <input 
+      id="taskTitle" 
+      type="text" 
       pInputText 
-      [(ngModel)]="searchQuery" 
-      placeholder="Buscar tarea..." 
-      icon="pi pi-search" 
-      class="p-inputtext-sm"
-    ></p-inputText>
-
-    <p-dropdown 
-      [(ngModel)]="selectedPriority" 
-      [options]="priorityOptions" 
-      optionLabel="label" 
-      placeholder="Filtrar por prioridad"
-      class="p-dropdown-sm"
-    ></p-dropdown>
-
-    <p-dropdown 
-      [(ngModel)]="selectedStatus" 
-      [options]="statusOptions" 
-      optionLabel="label" 
-      placeholder="Filtrar por estado"
-      class="p-dropdown-sm"
-    ></p-dropdown>
-
-    <button 
-      pButton 
-      label="Limpiar Filtros" 
-      icon="pi pi-refresh" 
-      class="p-button-secondary" 
-      (click)="clearFilters()"
-    ></button>
+      [(ngModel)]="newTask.titulo" 
+      required>
   </div>
 
-  <button 
-    pButton 
-    type="button" 
-    label="Añadir Nueva Tarea" 
-    icon="pi pi-plus" 
-    class="p-button-success" 
-    (click)="showDialog()"
-  ></button>
+  <div class="p-field">
+    <label for="taskPriority">Prioridad</label>
+    <p-dropdown 
+      id="taskPriority" 
+      [(ngModel)]="newTask.prioridad" 
+      [options]="priorityOptions" 
+      optionLabel="label" 
+      placeholder="Seleccionar Prioridad">
+    </p-dropdown>
+  </div>
 
-  <h2>Lista de Tareas</h2>
-  <p-table [value]="filteredTasks" responsiveLayout="scroll" class="p-table">
-    <ng-template pTemplate="header">
-      <tr>
-        <th>ID</th>
-        <th>Título</th>
-        <th>Prioridad</th>
-        <th>Estado</th>
-        <th>Fecha de Vencimiento</th>
-        <th>Acciones</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-task>
-      <tr>
-        <td>{{ task.id }}</td>
-        <td>{{ task.title }}</td>
-        <td>{{ task.priority }}</td>
-        <td>{{ task.completed ? 'Completada' : 'Pendiente' }}</td>
-        <td>{{ task.dueDate | date:'dd/MM/yyyy' }}</td>
-        <td>
-          <button 
-            pButton 
-            type="button" 
-            label="Editar" 
-            icon="pi pi-pencil" 
-            (click)="onEditTask(task)"
-          ></button>
-          <button 
-            pButton 
-            type="button" 
-            label="Eliminar" 
-            icon="pi pi-trash" 
-            class="p-button-danger" 
-            (click)="onDeleteTask(task.id)"
-          ></button>
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
+  <div class="p-field">
+    <label for="taskStatus">Estado</label>
+    <p-dropdown 
+      id="taskStatus" 
+      [(ngModel)]="newTask.estado" 
+      [options]="statusOptions" 
+      optionLabel="label" 
+      placeholder="Seleccionar Estado">
+    </p-dropdown>
+  </div>
 
-  <p-dialog 
-    header="Agregar/Editar Tarea" 
-    [(visible)]="display" 
-    [modal]="true" 
-    [closable]="false" 
-    class="p-dialog"
-  >
-    <div class="p-field">
-      <label for="taskTitle">Título</label>
-      <input 
-        id="taskTitle" 
-        type="text" 
-        pInputText 
-        [(ngModel)]="newTask.title" 
-        required
-      />
-    </div>
-    <div class="p-field">
-      <label for="taskPriority">Prioridad</label>
-      <p-dropdown 
-        id="taskPriority" 
-        [(ngModel)]="newTask.priority" 
-        [options]="priorityOptions" 
-        optionLabel="label" 
-        placeholder="Seleccionar Prioridad"
-      ></p-dropdown>
-      
-    </div>
-    <div class="p-field">
-      <label for="taskStatus">Estado</label>
-      <p-dropdown 
-        id="taskStatus" 
-        [(ngModel)]="newTask.completed" 
-        [options]="statusOptions" 
-        optionLabel="label" 
-        placeholder="Seleccionar Estado"
-      ></p-dropdown>
-    </div>
-    <div class="p-field">
-      <label for="taskDueDate">Fecha de Vencimiento</label>
-      <p-calendar 
-        id="taskDueDate" 
-        [(ngModel)]="newTask.dueDate" 
-        dateFormat="dd/mm/yy" 
-        placeholder="Seleccionar Fecha"
-      ></p-calendar>
-    </div>
-    <p-footer>
-      <button 
-        pButton 
-        type="button" 
-        label="Guardar" 
-        icon="pi pi-check" 
-        class="p-button-success" 
-        (click)="saveTask()"
-      ></button>
-      <button 
-        pButton 
-        type="button" 
-        label="Cancelar" 
-        icon="pi pi-times" 
-        class="p-button-secondary" 
-        (click)="hideDialog()"
-      ></button>
-    </p-footer>
-  </p-dialog>
-</div>
+  <div class="p-field">
+    <label for="taskDueDate">Fecha de Vencimiento</label>
+    <p-calendar 
+      id="taskDueDate" 
+      [(ngModel)]="newTask.vencimiento" 
+      dateFormat="dd/mm/yy" 
+      placeholder="Seleccionar Fecha">
+    </p-calendar>
+  </div>
+
+  <p-footer>
+    <button 
+      pButton 
+      type="button" 
+      label="Guardar" 
+      icon="pi pi-check" 
+      class="p-button-success" 
+      (click)="saveTask()">
+    </button>
+    <button 
+      pButton 
+      type="button" 
+      label="Cancelar" 
+      icon="pi pi-times" 
+      class="p-button-secondary" 
+      (click)="hideDialog()">
+    </button>
+  </p-footer>
+</p-dialog>
