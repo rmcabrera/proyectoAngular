@@ -21,4 +21,8 @@ export class SidebarComponent {
         this.visibleChange.emit(this.visible);
     }
 
+    logout() {
+      localStorage.removeItem('token'); 
+      this.router.navigate(['/login']); 
+    }
 }

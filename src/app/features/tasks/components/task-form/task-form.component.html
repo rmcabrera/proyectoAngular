@@ -1,0 +1,163 @@
+<p-dialog 
+  [(visible)]="display" 
+  [modal]="true" 
+  [closable]="false" 
+  [style]="{ width: '60rem' }"
+>
+  <ng-template pTemplate="header">
+    <div class="inline-flex align-items-center justify-content-start gap-3">
+      <p-avatar 
+        image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
+        shape="circle">
+      </p-avatar>
+      <span class="font-bold white-space-nowrap">
+        {{ 'Nuevo Registro' }}
+      </span>
+    </div>
+  </ng-template>
+
+  <span class="p-text-secondary block mb-5">
+    Complete la información de la tarea.
+  </span>
+
+  <div class="p-fluid grid">
+    <div class="field col-12">
+      <label for="taskId">ID</label>
+      <input 
+        id="taskId" 
+        type="number" 
+        pInputText 
+        [(ngModel)]="task.id" 
+        disabled 
+        placeholder="Autogenerado">
+    </div>
+
+    <div class="field col-12">
+      <label for="taskTitle">Título</label>
+      <input 
+        id="taskTitle" 
+        type="text" 
+        pInputText 
+        [(ngModel)]="task.titulo" 
+        placeholder="Título de la tarea" 
+        required>
+    </div>
+
+    <div class="field col-12">
+      <label for="taskDescription">Descripción</label>
+      <textarea 
+        id="taskDescription" 
+        rows="3" 
+        pInputTextarea 
+        [(ngModel)]="task.descripcion" 
+        placeholder="Breve descripción de la tarea">
+      </textarea>
+    </div>
+
+    <div class="field col-6">
+      <label for="taskPriority">Prioridad</label>
+      <p-dropdown 
+        id="taskPriority" 
+        [(ngModel)]="task.prioridad" 
+        [options]="priorityOptions" 
+        optionLabel="label" 
+        optionValue="value" 
+        placeholder="Seleccionar">
+      </p-dropdown>
+    </div>
+
+    <div class="field col-6">
+      <label for="taskStatus">Estado</label>
+      <p-dropdown 
+        id="taskStatus" 
+        [(ngModel)]="task.estado" 
+        [options]="statusOptions" 
+        optionLabel="label" 
+        optionValue="value" 
+        placeholder="Seleccionar">
+      </p-dropdown>
+    </div>
+
+    <div class="field col-6">
+      <label for="taskCreationDate">Fecha de Creación</label>
+      <p-calendar 
+        id="taskCreationDate" 
+        [(ngModel)]="task.creacion" 
+        dateFormat="dd/mm/yy" 
+        placeholder="Seleccionar Fecha">
+      </p-calendar>
+    </div>
+
+    <div class="field col-6">
+      <label for="taskDueDate">Fecha de Vencimiento</label>
+      <p-calendar 
+        id="taskDueDate" 
+        [(ngModel)]="task.vencimiento" 
+        dateFormat="dd/mm/yy" 
+        placeholder="Seleccionar Fecha">
+      </p-calendar>
+    </div>
+
+    <div class="field col-12">
+      <label for="taskCategory">Categoría</label>
+      <input 
+        id="taskCategory" 
+        type="text" 
+        pInputText 
+        [(ngModel)]="task.categoria" 
+        placeholder="Categoría de la tarea">
+    </div>
+
+    <div class="field col-12">
+      <label for="taskAssigned">Asignado a</label>
+      <input 
+        id="taskAssigned" 
+        type="text" 
+        pInputText 
+        [(ngModel)]="task.asignado" 
+        placeholder="Nombre del responsable">
+    </div>
+
+    <div class="field col-12">
+      <label for="taskComment">Comentarios</label>
+      <textarea 
+        id="taskComment" 
+        rows="3" 
+        pInputTextarea 
+        [(ngModel)]="task.comentario" 
+        placeholder="Comentarios adicionales">
+      </textarea>
+    </div>
+
+    <div class="field col-12">
+      <label for="taskProgress">Progreso</label>
+      <p-slider 
+        [(ngModel)]="task.progreso" 
+        [min]="0" 
+        [max]="100" 
+        [step]="10">
+      </p-slider>
+      <div class="text-right">{{ task.progreso }}%</div>
+    </div>
+    
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="flex justify-content-end gap-3">
+      <p-button 
+        label="Cancelar" 
+        class="p-button-secondary"
+        severity="secondary"  
+        (onClick)="onCancel()">
+      </p-button>
+      <p-button 
+        label="Guardar" 
+        class="p-button-success" 
+        (onClick)="onSave()">
+      </p-button>
+    </div>
+  </ng-template>
+
+
+
+</p-dialog>

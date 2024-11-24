@@ -9,28 +9,37 @@ import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TaskDashboardComponent } from './pages/task-dashboard/task-dashboard.component';
-import { AuthRoutingModule } from '../auth/auth-routing.module';
 import { SharedsModule } from '../../shared/shareds.module';
+import { TaskFormComponent } from './components/task-form/task-form.component';
+import { SliderModule } from 'primeng/slider';
+import { InputTextModule } from 'primeng/inputtext';
+import { AvatarModule } from 'primeng/avatar';
+import { InputTextareaModule } from 'primeng/inputtextarea'; 
+import { CalendarModule } from 'primeng/calendar';
+
 
 @NgModule({
   declarations: [
     TaskDashboardComponent,
+    TaskFormComponent,
 
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-   
     TaskRoutingModule, 
-    AuthRoutingModule,
-
     ButtonModule,  
     TableModule,  
     DialogModule,
     DropdownModule,
     ToolbarModule,
-    SharedsModule
+    SharedsModule,
+    SliderModule,
+    InputTextModule,
+    AvatarModule,
+    InputTextareaModule,
+    CalendarModule
   ],
   exports : [
     TableModule

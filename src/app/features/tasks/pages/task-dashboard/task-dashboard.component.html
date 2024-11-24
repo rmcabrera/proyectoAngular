@@ -4,7 +4,7 @@
     <label class="text-2xl">Listado de Tareas</label>
   </div>
   <div class="p-toolbar-group-end">
-    <p-button icon="pi pi-plus" label="Nueva Tarea" class="mr-2" (click)="showDialog()"></p-button>
+    <p-button icon="pi pi-plus" label="Nueva Tarea" class="mr-2" (click)="openNewTask()"></p-button>
   </div>
 </p-toolbar>
 
@@ -28,9 +28,9 @@
     </tr>
   </ng-template>
 
-  <ng-template pTemplate="body" let-task>
+  <ng-template pTemplate="body" let-task let-i="rowIndex">
     <tr>
-      <td>{{ task.id }}</td>
+      <td>{{ i + 1 }}</td>
       <td>{{ task.titulo }}</td>
       <td>{{ task.descripcion }}</td>
       <td>{{ task.prioridad }}</td>
@@ -57,72 +57,9 @@
   </ng-template>
 </p-table>
 
-<!-- Diálogo para agregar/editar tarea -->
-<p-dialog 
-  header="Agregar/Editar Tarea" 
-  [(visible)]="display" 
-  [modal]="true" 
-  [closable]="false" 
-  class="p-dialog">
-  
-  <div class="p-field">
-    <label for="taskTitle">Título</label>
-    <input 
-      id="taskTitle" 
-      type="text" 
-      pInputText 
-      [(ngModel)]="newTask.titulo" 
-      required>
-  </div>
-
-  <div class="p-field">
-    <label for="taskPriority">Prioridad</label>
-    <p-dropdown 
-      id="taskPriority" 
-      [(ngModel)]="newTask.prioridad" 
-      [options]="priorityOptions" 
-      optionLabel="label" 
-      placeholder="Seleccionar Prioridad">
-    </p-dropdown>
-  </div>
-
-  <div class="p-field">
-    <label for="taskStatus">Estado</label>
-    <p-dropdown 
-      id="taskStatus" 
-      [(ngModel)]="newTask.estado" 
-      [options]="statusOptions" 
-      optionLabel="label" 
-      placeholder="Seleccionar Estado">
-    </p-dropdown>
-  </div>
-
-  <div class="p-field">
-    <label for="taskDueDate">Fecha de Vencimiento</label>
-    <p-calendar 
-      id="taskDueDate" 
-      [(ngModel)]="newTask.vencimiento" 
-      dateFormat="dd/mm/yy" 
-      placeholder="Seleccionar Fecha">
-    </p-calendar>
-  </div>
-
-  <p-footer>
-    <button 
-      pButton 
-      type="button" 
-      label="Guardar" 
-      icon="pi pi-check" 
-      class="p-button-success" 
-      (click)="saveTask()">
-    </button>
-    <button 
-      pButton 
-      type="button" 
-      label="Cancelar" 
-      icon="pi pi-times" 
-      class="p-button-secondary" 
-      (click)="hideDialog()">
-    </button>
-  </p-footer>
-</p-dialog>
+<app-task-form 
+  [task]="selectedTask" 
+  [(display)]="displayDialog" 
+  (save)="saveTask($event)" 
+  (cancel)="hideDialog()">
+</app-task-form>
