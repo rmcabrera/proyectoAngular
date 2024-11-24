@@ -1,0 +1,33 @@
+<!-- main-layout.component.html -->
+<p-sidebar [(visible)]="sidebarVisible" [showCloseIcon]="false" [modal]="true" styleClass="custom-sidebar">
+  <nav>
+    <ul>
+      <li>
+        <a routerLink="tasks" >
+          <i class="pi pi-list"></i> Tareas
+        </a>
+      </li>
+      <li>
+        <a routerLink="reports">
+          <i class="pi pi-chart-bar"></i> Reportes
+        </a>
+      </li>
+    </ul>
+  </nav>
+</p-sidebar>
+
+<div class="layout-container">
+  <!-- Header -->
+  <p-toolbar class="header">
+    <div class="p-toolbar-group-left">
+      <button pButton icon="pi pi-bars" class="p-button-text p-button-lg" (click)="toggleSidebar()" aria-label="Menu"></button>
+    </div>
+    <div class="p-toolbar-group-right">
+      <span class="header-title">Sistema de Gestión de Tareas</span>
+      <button pButton icon="pi pi-power-off" class="p-button-danger p-button-rounded p-button-sm" aria-label="Logout" (click)="logout()"></button>
+    </div>
+  </p-toolbar>
+
+  <!-- Aquí debe ir el router-outlet para las rutas hijas -->
+  <router-outlet></router-outlet>
+</div>

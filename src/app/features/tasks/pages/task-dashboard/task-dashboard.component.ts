@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { collection, getDocs, doc, setDoc, getFirestore } from 'firebase/firestore';
+import { FirebaseService } from '../../../../core/services/firebase/firebase.service';
+
 
 @Component({
   selector: 'app-task-dashboard',
@@ -14,16 +16,20 @@ export class TaskDashboardComponent {
     { id: 3, title: 'Tarea 3', priority: 'Baja', completed: false, dueDate: new Date('2023-12-10') },
   ];
 
-  constructor() {
-    
-    const db = getFirestore();
+  constructor(private firebaseService: FirebaseService) {}
+
+  ngOnInit(): void {
+    this.loadData();
+  }
+
+  loadData() {
+    const db = this.firebaseService.getFirestoreInstance();
 
     getDocs(collection(db, 'tareas')).then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         console.log(doc.id, ' => ', doc.data());
       });
     });
-
 
     setDoc(doc(db, 'tareas', 'new-doc'), {
       titulo: 'Nuevo documento',
