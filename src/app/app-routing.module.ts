@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found/page-not-found.component';
-import { SharedsModule } from './shared/shareds.module';
+import { WelcomeComponent } from './shared/components/welcome/welcome.component';
 import { MainLayoutComponent } from './shared/components/main-layout/main-layout.component';
 
 const routes: Routes = [
@@ -23,6 +23,7 @@ const routes: Routes = [
         loadChildren: () => import('./features/tasks/tasks.module').then(m => m.TaskModule),
         canActivate: [AuthGuard]
       },
+      { path: '', component: WelcomeComponent, pathMatch: 'full' }, 
       { path: '**', component: PageNotFoundComponent }, 
     ],
   },

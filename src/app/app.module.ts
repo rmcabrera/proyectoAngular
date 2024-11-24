@@ -14,7 +14,6 @@ import { AuthModule } from './features/auth/auth.module';
 import { environment } from '../environments/environment';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { HeaderComponent } from './shared/components/header/header.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { SharedsModule } from './shared/shareds.module';
 import { PanelModule } from 'primeng/panel';
@@ -23,7 +22,6 @@ import { PanelModule } from 'primeng/panel';
   declarations: [
     AppComponent,
     PageNotFoundComponent,
-    HeaderComponent,
     SidebarComponent,
     
   ],

@@ -8,11 +8,15 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 import { PanelModule } from 'primeng/panel';
+import { HeaderComponent } from './components/header/header.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 
 
 @NgModule({
   declarations: [
     MainLayoutComponent,
+    HeaderComponent,
+    WelcomeComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +26,7 @@ import { PanelModule } from 'primeng/panel';
     ToolbarModule,
     ButtonModule,
     CardModule,
-    PanelModule
+    PanelModule,
   ],
   exports: [
     SidebarModule,
@@ -30,7 +34,7 @@ import { PanelModule } from 'primeng/panel';
     ButtonModule, 
     RouterModule,
     MainLayoutComponent,
-    PanelModule
+    PanelModule,
   ],
 })
 export class SharedsModule { }

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Location } from '@angular/common';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-page-not-found',
@@ -8,9 +7,9 @@ import { Location } from '@angular/common';
   styleUrls: ['./page-not-found.component.css'],
 })
 export class PageNotFoundComponent {
-  constructor(private location: Location) {}
+  constructor(private router: Router) {}
 
-  goBack() {
-    this.location.back();
+  navigateToHome() {
+    this.router.navigate(['/main']);
   }
 }
