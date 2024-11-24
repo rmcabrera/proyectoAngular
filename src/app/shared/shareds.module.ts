@@ -10,13 +10,17 @@ import { MainLayoutComponent } from './components/main-layout/main-layout.compon
 import { PanelModule } from 'primeng/panel';
 import { HeaderComponent } from './components/header/header.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
-
+import { AvatarModule } from 'primeng/avatar';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { BadgeModule } from 'primeng/badge';
+import { MenuModule } from 'primeng/menu';
 
 @NgModule({
   declarations: [
     MainLayoutComponent,
     HeaderComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    SidebarComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +31,9 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     ButtonModule,
     CardModule,
     PanelModule,
+    AvatarModule,
+    BadgeModule,
+    MenuModule
   ],
   exports: [
     SidebarModule,
@@ -35,6 +42,10 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     RouterModule,
     MainLayoutComponent,
     PanelModule,
+    AvatarModule, 
+    SidebarComponent,
+    BadgeModule,
+    MenuModule
   ],
 })
 export class SharedsModule { }

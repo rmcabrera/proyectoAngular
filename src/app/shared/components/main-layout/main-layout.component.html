@@ -1,21 +1,6 @@
 <app-header (sidebarToggle)="toggleSidebar()" (logoutEvent)="logout()"></app-header>
 
-<p-sidebar [(visible)]="sidebarVisible" [showCloseIcon]="false" [modal]="true" styleClass="custom-sidebar">
-  <nav>
-    <ul>
-      <li>
-        <a routerLink="tasks" >
-          <i class="pi pi-list"></i> Tareas
-        </a>
-      </li>
-      <li>
-        <a routerLink="reports">
-          <i class="pi pi-chart-bar"></i> Reportes
-        </a>
-      </li>
-    </ul>
-  </nav>
-</p-sidebar>
+<app-sidebar [(visible)]="sidebarVisible" (visibleChange)="closeSidebar()"></app-sidebar>
 
 <div class="layout-container">
   <router-outlet></router-outlet>

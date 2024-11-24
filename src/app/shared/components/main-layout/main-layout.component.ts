@@ -12,8 +12,7 @@ export class MainLayoutComponent {
 
   constructor(private router: Router) {
   }
-
- 
+  
   toggleSidebar() {
     this.sidebarVisible = !this.sidebarVisible;
   }
