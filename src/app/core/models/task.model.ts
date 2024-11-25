@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export interface Task {
     id: number;                     
     titulo: string;                  
@@ -9,6 +11,7 @@ export interface Task {
     categoria: string;    
     asignado : string;
     comentario : string;      
-    progreso : number;          
+    progreso : number; 
+    idunique : string;      //no esta bd   
   }
   

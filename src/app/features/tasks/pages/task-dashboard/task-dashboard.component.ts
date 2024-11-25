@@ -2,11 +2,15 @@ import { Component, ChangeDetectorRef  } from '@angular/core';
 import { collection, getDocs, doc, deleteDoc,  addDoc, updateDoc, setDoc, getFirestore } from 'firebase/firestore';
 import { FirebaseService } from '../../../../core/services/firebase/firebase.service';
 import { Task } from '../../../../core/models/task.model';
+import { ConfirmationService, MessageService } from 'primeng/api'; 
+import { Timestamp } from 'firebase/firestore';
+
 
 @Component({
   selector: 'app-task-dashboard',
   templateUrl: './task-dashboard.component.html',
   styleUrls: ['./task-dashboard.component.css'],
+  providers: [ConfirmationService, MessageService]
 })
 export class TaskDashboardComponent {
  
@@ -19,7 +23,9 @@ export class TaskDashboardComponent {
   selectedPriority: string = '';
   selectedStatus: string = '';
  
-  constructor(private firebaseService: FirebaseService, private cdr: ChangeDetectorRef ) {
+  constructor(private firebaseService: FirebaseService, 
+      private cdr: ChangeDetectorRef ,  
+      private confirmationService: ConfirmationService, private messageService: MessageService) {
 
   }
 
@@ -37,14 +43,21 @@ export class TaskDashboardComponent {
         index ++ ;
         const taskData = doc.data() as Task;
         taskData.id = index;
+
+        const creacion = taskData.creacion instanceof Timestamp ? taskData.creacion.toDate() : new Date();
+        const vencimiento = taskData.vencimiento instanceof Timestamp ? taskData.vencimiento.toDate() : new Date();
+  
         const task: Task = {
+          idunique: doc.id, 
           id: taskData.id,
           titulo: taskData.titulo,
           descripcion: taskData.descripcion || '', 
           prioridad: taskData.prioridad,
           estado: taskData.estado,
-          creacion: taskData.creacion ? taskData.creacion : new Date(),
-          vencimiento: taskData.vencimiento ? taskData.vencimiento: new Date(),
+    
+          creacion: creacion,
+          vencimiento: vencimiento,
+   
           categoria: taskData.categoria || '',
           asignado: taskData.asignado || '',
           comentario: taskData.comentario || '',
@@ -71,70 +84,107 @@ export class TaskDashboardComponent {
     this.cdr.detectChanges();
   }
 
-  onDeleteTask(taskId: number) {
-    const db = this.firebaseService.getFirestoreInstance();
-    deleteDoc(doc(db, 'tareas', taskId.toString())).then(() => {
-      this.tasks = this.tasks.filter(task => task.id !== taskId);
+  onDeleteTask(task: Task) {
+    this.confirmationService.confirm({
+      message: '¿Está seguro de que desea eliminar esta tarea?',
+      header: 'Confirmación de eliminación',
+      icon: 'pi pi-info-circle',
+      acceptButtonStyleClass:"p-button-danger p-button-text",
+      rejectButtonStyleClass:"p-button-text p-button-text",
+      acceptIcon:"none",
+      rejectIcon:"none",      
+      acceptLabel: 'Sí',  
+      rejectLabel: 'No',   
+
+      accept: () => {
+        const db = this.firebaseService.getFirestoreInstance();
+        deleteDoc(doc(db, 'tareas', task.idunique)).then(() => {
+          this.tasks = this.tasks.filter(t => t.idunique !== task.idunique); 
+          console.log('Tarea eliminada:', task);
+        }).catch(error => {
+          console.error('Error eliminando la tarea:', error);
+        });
+      },
+      reject: () => {
+        console.log('Eliminación cancelada');
+      }
     });
   }
 
   saveTask(task: Task) {
 
-    const db = this.firebaseService.getFirestoreInstance();
-    if (task.id === 0) {
-      // Lógica para crear nueva tarea con un ID autogenerado
-      const taskRef = collection(db, 'tareas');
-      addDoc(taskRef, {
-        titulo: task.titulo,
-        descripcion: task.descripcion,
-        prioridad: task.prioridad,
-        estado: task.estado,
-        creacion: task.creacion,
-        vencimiento: task.vencimiento,
-        categoria: task.categoria,
-        asignado: task.asignado,
-        comentario: task.comentario,
-        progreso: task.progreso
-      })
-      .then((docRef) => {
-        console.log("Tarea guardada con ID:", docRef.id);
-        task.id = parseInt(docRef.id, 10); 
-        this.tasks.push(task);
-        this.displayDialog = false;
-      })
-      .catch((error) => {
-        console.error("Error al guardar la tarea:", error);
-      });
-    } else {
-      // Lógica para actualizar tarea existente
-      const taskRef = doc(db, 'tareas', task.id.toString());
-      updateDoc(taskRef, {
-        titulo: task.titulo,
-        descripcion: task.descripcion,
-        prioridad: task.prioridad,
-        estado: task.estado,
-        creacion: task.creacion,
-        vencimiento: task.vencimiento,
-        categoria: task.categoria,
-        asignado: task.asignado,
-        comentario: task.comentario,
-        progreso: task.progreso
-      })
-      .then(() => {
-        console.log("Tarea actualizada con ID:", task.id);
-        const index = this.tasks.findIndex(t => t.id === task.id);
-        if (index !== -1) {
-          this.tasks[index] = task; // Actualizar tarea en la lista
+    this.confirmationService.confirm({
+      message: '¿Está seguro de que desea guardar esta tarea?',
+      header: 'Confirmación de guardado',
+      icon: 'pi pi-check-circle',
+      acceptLabel: 'Sí',  
+      rejectLabel: 'No',  
+      acceptIcon: 'pi pi-check',  
+      rejectIcon: 'pi pi-times', 
+      accept: () => {
+            
+        const db = this.firebaseService.getFirestoreInstance();
+        if (!task.idunique) {
+          // Lógica para crear nueva tarea con un ID autogenerado
+          const taskRef = collection(db, 'tareas');
+          const creacion = task.creacion instanceof Date ? Timestamp.fromDate(task.creacion) : null;
+          const vencimiento = task.vencimiento instanceof Date ? Timestamp.fromDate(task.vencimiento) : null;
+        
+          addDoc(taskRef, {
+            titulo: task.titulo,
+            descripcion: task.descripcion,
+            prioridad: task.prioridad,
+            estado: task.estado,
+            creacion: creacion,
+            vencimiento: vencimiento,
+            categoria: task.categoria,
+            asignado: task.asignado,
+            comentario: task.comentario,
+            progreso: task.progreso
+          })
+          .then((docRef) => {
+            console.log("Tarea guardada con ID:", docRef.id);
+            console.log(task)
+            task.idunique = docRef.id; 
+            this.tasks.push(task);
+            this.displayDialog = false;
+          })
+          .catch((error) => {
+            console.error("Error al guardar la tarea:", error);
+          });
+        } else {
+          // Lógica para actualizar tarea existente
+          const taskRef = doc(db, 'tareas', task.idunique);
+          updateDoc(taskRef, {
+            titulo: task.titulo,
+            descripcion: task.descripcion,
+            prioridad: task.prioridad,
+            estado: task.estado,
+            creacion: task.creacion,
+            vencimiento: task.vencimiento,
+            categoria: task.categoria,
+            asignado: task.asignado,
+            comentario: task.comentario,
+            progreso: task.progreso
+          })
+          .then(() => {
+            console.log("Tarea actualizada con ID:", task.idunique);
+            console.log(task)
+            const index = this.tasks.findIndex(t => t.idunique === task.idunique);
+            if (index !== -1) {
+              this.tasks[index] = task; // Actualizar tarea en la lista
+            }
+            this.displayDialog = false;
+          })
+          .catch((error) => {
+            console.error("Error al actualizar la tarea:", error);
+          });
         }
-        this.displayDialog = false;
-      })
-      .catch((error) => {
-        console.error("Error al actualizar la tarea:", error);
-      });
-    }
-//    this.tasks = [];
-//    this.loadData();
-    this.displayDialog = false;
+      },
+      reject: () => {
+        console.log('Guardado cancelado');
+      },
+    });
   }
 
   
@@ -155,12 +205,13 @@ export class TaskDashboardComponent {
       descripcion: '',
       prioridad: 'Media',
       estado: 'Pendiente',
-      creacion: new Date(),
+      creacion:  new Date(),
       vencimiento: new Date(),
       categoria: '',
       asignado: '',
       comentario: '',
       progreso: 0,
+      idunique : ''
     };
   }
 

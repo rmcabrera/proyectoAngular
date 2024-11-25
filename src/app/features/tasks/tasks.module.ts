@@ -16,7 +16,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { AvatarModule } from 'primeng/avatar';
 import { InputTextareaModule } from 'primeng/inputtextarea'; 
 import { CalendarModule } from 'primeng/calendar';
-
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -39,10 +40,14 @@ import { CalendarModule } from 'primeng/calendar';
     InputTextModule,
     AvatarModule,
     InputTextareaModule,
-    CalendarModule
+    CalendarModule,
+    ConfirmDialogModule, ToastModule
   ],
   exports : [
     TableModule
+  ],
+  providers:[
+    
   ]
 })
 export class TaskModule {}

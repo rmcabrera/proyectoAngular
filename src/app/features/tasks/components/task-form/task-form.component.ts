@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Task } from '../../../../core/models/task.model';
+import { Timestamp } from 'firebase/firestore';
 
 @Component({
   selector: 'app-task-form',
@@ -14,12 +15,13 @@ export class TaskFormComponent {
     descripcion: '',
     prioridad: 'Media',
     estado: 'Pendiente',
-    creacion: new Date(),
+    creacion:  new Date(),
     vencimiento: new Date(),
     categoria: '',
     asignado: '',
     comentario: '',
-    progreso: 0
+    progreso: 0,
+    idunique: ''
   };
 
   @Input() display: boolean = false; 
@@ -44,7 +46,6 @@ export class TaskFormComponent {
   
   onSave() {
     this.save.emit(this.task); 
-    this.onCloseDialog(); 
   }
 
   onCancel() {
