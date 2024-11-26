@@ -4,6 +4,7 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found/page-not-found.component';
 import { WelcomeComponent } from './shared/components/welcome/welcome.component';
 import { MainLayoutComponent } from './shared/components/main-layout/main-layout.component';
+import { RegisterComponent } from './features/auth/components/register/register.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -21,6 +22,12 @@ const routes: Routes = [
       { 
         path: 'tasks', 
         loadChildren: () => import('./features/tasks/tasks.module').then(m => m.TaskModule),
+        canActivate: [AuthGuard]
+      },
+      { 
+        path: 'register', 
+        //loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule),
+        component: RegisterComponent,
         canActivate: [AuthGuard]
       },
       { path: '', component: WelcomeComponent, pathMatch: 'full' }, 
