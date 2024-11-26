@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router , ActivatedRoute} from '@angular/router';
 import { AuthService } from '../../../../core/services/auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginComponent {
   constructor(
     private authService: AuthService, 
     private router: Router,
+    private toastr: ToastrService,
     private route: ActivatedRoute // Para obtener los parámetros de la ruta
   ) {}
 
@@ -24,14 +26,17 @@ export class LoginComponent {
       const token = await this.authService.login(this.email, this.password);
       localStorage.setItem('token', token || '');
       console.log('Inicio de sesión exitoso. Token:', token);
-
+      //this.toastr.success('Operación exitosa', 'Exito');
       // Redirigir al usuario a la página anterior o al inicio por defecto
       const returnUrl = '/main'; 
       this.router.navigate([returnUrl]);
 
     } catch (error) {
+      console.log("ERROR EN LOGIN");
+      this.toastr.error('Error al iniciar sesión', 'Error');
       this.errorMessage = 'Error al iniciar sesión. Intente de nuevo.';
       console.error('Error al iniciar sesión:', error);
+      
     }
   }
 

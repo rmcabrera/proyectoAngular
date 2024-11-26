@@ -4,6 +4,7 @@ import { FirebaseService } from '../../../../core/services/firebase/firebase.ser
 import { Task } from '../../../../core/models/task.model';
 import { ConfirmationService, MessageService } from 'primeng/api'; 
 import { Timestamp } from 'firebase/firestore';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class TaskDashboardComponent {
  
   constructor(private firebaseService: FirebaseService, 
       private cdr: ChangeDetectorRef ,  
+      private toastr: ToastrService,
       private confirmationService: ConfirmationService, private messageService: MessageService) {
 
   }
@@ -100,8 +102,10 @@ export class TaskDashboardComponent {
         const db = this.firebaseService.getFirestoreInstance();
         deleteDoc(doc(db, 'tareas', task.idunique)).then(() => {
           this.tasks = this.tasks.filter(t => t.idunique !== task.idunique); 
+          this.toastr.success('Operación exitosa', 'Exito');
           console.log('Tarea eliminada:', task);
         }).catch(error => {
+          this.toastr.error('Error al eliminar tarea', 'Error');
           console.error('Error eliminando la tarea:', error);
         });
       },
@@ -143,6 +147,7 @@ export class TaskDashboardComponent {
             progreso: task.progreso
           })
           .then((docRef) => {
+            this.toastr.success('Operación exitosa', 'Exito');
             console.log("Tarea guardada con ID:", docRef.id);
             console.log(task)
             task.idunique = docRef.id; 
@@ -150,6 +155,7 @@ export class TaskDashboardComponent {
             this.displayDialog = false;
           })
           .catch((error) => {
+            this.toastr.error('Error al insertar tarea', 'Error');
             console.error("Error al guardar la tarea:", error);
           });
         } else {
@@ -168,6 +174,7 @@ export class TaskDashboardComponent {
             progreso: task.progreso
           })
           .then(() => {
+            this.toastr.success('Operación exitosa', 'Exito');
             console.log("Tarea actualizada con ID:", task.idunique);
             console.log(task)
             const index = this.tasks.findIndex(t => t.idunique === task.idunique);
@@ -177,6 +184,7 @@ export class TaskDashboardComponent {
             this.displayDialog = false;
           })
           .catch((error) => {
+            this.toastr.error('Error al actualizar tarea', 'Error');
             console.error("Error al actualizar la tarea:", error);
           });
         }

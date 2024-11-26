@@ -16,6 +16,8 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { SharedsModule } from './shared/shareds.module';
 import { PanelModule } from 'primeng/panel';
+import { ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { PanelModule } from 'primeng/panel';
     CardModule,
     AuthModule,
     PanelModule,
-    AngularFireModule.initializeApp(environment.firebase),    
+    AngularFireModule.initializeApp(environment.firebase),  
+    ToastrModule.forRoot(),  
   ],
   exports : [
     
