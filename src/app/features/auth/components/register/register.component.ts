@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../../../core/services/auth/auth.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
  
 @Component({
   selector: 'app-register',
@@ -12,7 +13,9 @@ export class RegisterComponent {
   password: string = '';
   errorMessage: string = '';
  
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, 
+    private toastr: ToastrService,
+    private router: Router) {}
  
   onRegister() {
     if (this.email && this.password) {
@@ -20,11 +23,13 @@ export class RegisterComponent {
         (userCredential) => {
           // Registro exitoso, redirige al usuario a la página principal
           console.log('Registro exitoso:', userCredential);
+          this.toastr.success('Operación exitosa', 'Exito');
           this.router.navigate(['/main']);
         },
         (error) => {
           // En caso de error, muestra el mensaje de error
           this.errorMessage = error.message;
+          this.toastr.error('Error al registrar usuario', 'Error');
           console.error('Error de registro:', error);
         }
       );
