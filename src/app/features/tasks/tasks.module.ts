@@ -19,13 +19,16 @@ import { CalendarModule } from 'primeng/calendar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { BadgeModule } from 'primeng/badge';    
-import { ProgressBarModule } from 'primeng/progressbar'; 
+import { ProgressBarModule } from 'primeng/progressbar';
+import { TaskKanbanBoardComponent } from './pages/task-kanban-board/task-kanban-board.component'; 
+import { DragDropModule } from '@angular/cdk/drag-drop'; 
 
 
 @NgModule({
   declarations: [
     TaskDashboardComponent,
     TaskFormComponent,
+    TaskKanbanBoardComponent,
 
   ],
   imports: [
@@ -47,7 +50,8 @@ import { ProgressBarModule } from 'primeng/progressbar';
     ConfirmDialogModule, 
     ToastModule,
     BadgeModule,
-    ProgressBarModule
+    ProgressBarModule,
+    DragDropModule
   ],
   exports : [
     TableModule

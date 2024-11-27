@@ -11,11 +11,15 @@ export class SidebarComponent {
     @Output() visibleChange = new EventEmitter<boolean>();
 
     constructor(private router: Router, private route: ActivatedRoute) {}
-
+/*
     navigateTo(childRoute: string): void {
+      console.log(childRoute)
       this.router.navigate([childRoute], { relativeTo: this.route }); 
+    }*/
+    navigateTo(childRoute: string): void {
+      console.log(childRoute)
+      this.router.navigate([`/main/${childRoute}`]); 
     }
-
     onClose() {
         this.visible = false;
         this.visibleChange.emit(this.visible);
