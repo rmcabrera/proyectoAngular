@@ -101,12 +101,14 @@
 
     <div class="field col-12">
       <label for="taskCategory">Categoría</label>
-      <input 
+      <p-dropdown 
         id="taskCategory" 
-        type="text" 
-        pInputText 
         [(ngModel)]="task.categoria" 
-        placeholder="Categoría de la tarea">
+        [options]="categoriaOptions" 
+        optionLabel="label" 
+        optionValue="value" 
+        placeholder="Seleccionar categoría">
+      </p-dropdown>
     </div>
 
     <div class="field col-12">

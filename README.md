@@ -1,27 +1,78 @@
-# ProyectoFinal
+# Gestor de Tareas - Proyecto en Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.10.
+Este es un proyecto de **gestión de tareas** desarrollado con **Angular** y **Firebase**. La aplicación permite a los usuarios registrar, editar, eliminar y organizar sus tareas diarias de manera sencilla y eficiente. Además, incluye la funcionalidad de autenticación y la conexión a la base de datos en tiempo real usando **Firebase**.
 
-## Development server
+## Características
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Autenticación de Usuario**: Los usuarios pueden registrarse, iniciar sesión y cerrar sesión usando Firebase Authentication.
+- **Gestión de Tareas**: Los usuarios pueden agregar, editar, eliminar y organizar tareas.
+- **Fecha de Creación y Vencimiento**: Cada tarea tiene una fecha de creación y vencimiento.
+- **Interfaz Moderna**: Uso de componentes de **PrimeNG** para crear una interfaz limpia y atractiva.
+- **Base de Datos**: Utiliza **Firestore** de Firebase para almacenar y sincronizar las tareas en tiempo real.
 
-## Code scaffolding
+## Tecnologías Utilizadas
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Angular** (Framework Frontend)
+- **Firebase** (Autenticación, Firestore, Almacenamiento)
+- **PrimeNG** (Componentes UI)
+- **RxJS** (Manejo de operaciones asíncronas)
+- **AngularFire** (Conexión entre Angular y Firebase)
 
-## Build
+## Instalación
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Requisitos previos
 
-## Running unit tests
+- Tener instalado **Node.js** (recomendado: versión 14 o superior).
+- Tener una cuenta en **Firebase** y haber creado un proyecto en la consola de Firebase.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Pasos para la instalación:
 
-## Running end-to-end tests
+1. **Clonar el repositorio:**
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+   ```bash
+   git clone https://github.com/rmcabrera/proyectoAngular.git
+   cd gestor-de-tareas
 
-## Further help
+Para clonar el repositorio, usa el siguiente enlace:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+2. **Instalar dependencias:**
+
+   Una vez que tengas el repositorio clonado, instala las dependencias del proyecto con **npm**:
+
+   ```bash
+   npm install
+
+3. **Configurar Firebase:**
+
+   - Crea un proyecto en **Firebase**.
+   - Habilita **Firestore** y **Firebase Authentication** en tu consola de Firebase.
+   - Obtén las credenciales de tu proyecto de Firebase (puedes encontrarlas en la sección **Configuración del proyecto** > **Firebase SDK**).
+   - Copia las credenciales de Firebase en el archivo **`src/environments/environment.ts`**:
+
+     ```typescript
+     export const environment = {
+       production: false,
+       firebase: {
+         apiKey: 'TU_API_KEY',
+         authDomain: 'TU_PROJECT_ID.firebaseapp.com',
+         projectId: 'TU_PROJECT_ID',
+         storageBucket: 'TU_PROJECT_ID.appspot.com',
+         messagingSenderId: 'TU_MESSAGING_SENDER_ID',
+         appId: 'TU_APP_ID'
+       }
+     };
+     ```
+
+4. **Ejecutar la aplicación:**
+
+   Después de haber configurado Firebase y de haber instalado las dependencias, puedes ejecutar la aplicación de desarrollo:
+
+   ```bash
+   ng serve
+
+Luego, abre tu navegador y navega a [http://localhost:4200/login](http://localhost:4200/login) para ver la aplicación en acción.
+
+Para acceder a la aplicación, ingresa el siguiente usuario y contraseña:
+
+- **Usuario**: rcabrerac@gmail.com
+- **Contraseña**: sunatdevelop

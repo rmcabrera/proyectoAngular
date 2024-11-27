@@ -3,7 +3,8 @@ import { Task } from '../../../../core/models/task.model';
 import { ConfirmationService, MessageService } from 'primeng/api'; 
 import { ToastrService } from 'ngx-toastr';
 import { TaskService } from '../../../../core/services/task/task.service';
-
+import { CategoryOption } from '../../../../core/models/category-option.model';
+import { TaskOptionsService } from '../../../../core/services/task/task-options.service';
 
 @Component({
   selector: 'app-task-dashboard',
@@ -17,15 +18,19 @@ export class TaskDashboardComponent implements OnInit{
   selectedTask: Task = this.createEmptyTask();
   displayDialog: boolean = false;
 
-  display: boolean = false;
-  searchQuery: string = '';
-  selectedPriority: string = '';
-  selectedStatus: string = '';
+  filteredTasks: Task[] = [];
+  selectedCategory: string = ''; 
+  categoryOptions: CategoryOption[] = [];
+
+  sortField: string = 'creacion';  
+  sortOrder: number = 1; 
  
   constructor(private taskService: TaskService, 
       private cdr: ChangeDetectorRef ,  
       private toastr: ToastrService,
-      private confirmationService: ConfirmationService, private messageService: MessageService) {
+      private confirmationService: ConfirmationService, 
+      private messageService: MessageService,
+      private taskOptionsService: TaskOptionsService) {
 
   }
 
@@ -33,7 +38,9 @@ export class TaskDashboardComponent implements OnInit{
   ngOnInit(): void {
     this.taskService.getTasks().subscribe(tasks => {
       this.tasks = tasks;
+      this.filteredTasks = tasks;
     })
+    this.categoryOptions = this.taskOptionsService.getCategoriaOptions();
   }
 
   async onDeleteTask(task: Task) {
@@ -55,6 +62,7 @@ export class TaskDashboardComponent implements OnInit{
             summary: 'Tarea eliminada',
             detail: `La tarea "${task.titulo}" fue eliminada exitosamente.`,
           });
+          this.clearFilter() ;
         } catch (error) {
           this.messageService.add({
             severity: 'error',
@@ -100,6 +108,7 @@ export class TaskDashboardComponent implements OnInit{
               summary: 'Tarea creada',
               detail: `La tarea "${task.titulo}" fue creada exitosamente.`,
             });
+            this.clearFilter() ;
           } else {
             const response = await this.taskService.updateTask(task);
             this.displayDialog = false;
@@ -108,6 +117,7 @@ export class TaskDashboardComponent implements OnInit{
               summary: 'Tarea actualizada',
               detail: `La tarea "${task.titulo}" fue actualizada exitosamente.`,
             });
+            this.clearFilter() ;
           }
         } catch (error) {
           this.messageService.add({
@@ -116,6 +126,7 @@ export class TaskDashboardComponent implements OnInit{
             detail: 'No se puedo guardar la tarea.',
           });
         }
+        
       },
       reject: () => {
         console.log('Guardado cancelado');
@@ -127,12 +138,6 @@ export class TaskDashboardComponent implements OnInit{
     this.displayDialog = false;
   }
 
-  clearFilters() {
-    this.searchQuery = '';
-    this.selectedPriority = '';
-    this.selectedStatus = '';
-  }
-
   private createEmptyTask(): Task {
     return {
       id: '',
@@ -142,11 +147,57 @@ export class TaskDashboardComponent implements OnInit{
       estado: 'Pendiente',
       creacion:  new Date(),
       vencimiento: new Date(),
-      categoria: '',
+      categoria: 'Personales',
       asignado: '',
       comentario: '',
       progreso: 0,
     };
   }
 
+  getPriorityClass(priority: 'Alta' | 'Media' | 'Baja'): string {
+    switch (priority) {
+      case 'Alta':
+        return 'p-badge-danger';  
+      case 'Media':
+        return 'p-badge-warning';  
+      case 'Baja':
+        return 'p-badge-success';  
+      default:
+        return '';
+    }
+  }
+
+  getStatusClass(status: 'Pendiente' | 'En progreso' | 'Completada'): string {
+    switch (status) {
+      case 'Pendiente':
+        return 'p-badge-warning';  
+      case 'En progreso':
+        return 'p-badge-info';   
+      case 'Completada':
+        return 'p-badge-success';  
+      default:
+        return '';
+    }
+  }
+
+  filterByCategory() {
+    if (this.selectedCategory) {
+      this.filteredTasks = this.tasks.filter(task => task.categoria === this.selectedCategory);
+    } else {
+      this.filteredTasks = this.tasks; 
+    }
+  }
+
+  onSort(field: string): void {
+    this.sortField = field;  
+    this.sortOrder = (this.sortOrder === 1) ? -1 : 1;  
+  }
+
+  clearFilter(): void {
+    this.selectedCategory = ''; 
+    
+    this.filteredTasks = this.tasks; 
+    
+    this.filterByCategory(); 
+  }
 }

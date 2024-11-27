@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Task } from '../../../../core/models/task.model';
-import { Timestamp } from 'firebase/firestore';
+import { TaskOptionsService } from '../../../../core/services/task/task-options.service';
+import { PriorityOption } from '../../../../core/models/priority-option.model';
+import { StatusOption } from '../../../../core/models/status-option.model';
+import { CategoryOption } from '../../../../core/models/category-option.model';
 
 @Component({
   selector: 'app-task-form',
@@ -17,7 +20,7 @@ export class TaskFormComponent {
     estado: 'Pendiente',
     creacion:  new Date(),
     vencimiento: new Date(),
-    categoria: '',
+    categoria: 'Personales',
     asignado: '',
     comentario: '',
     progreso: 0,
@@ -29,19 +32,20 @@ export class TaskFormComponent {
   @Output() save = new EventEmitter<Task>(); 
   @Output() cancel = new EventEmitter<void>(); 
 
-  priorityOptions = [
-    { label: 'Alta', value: 'Alta' },
-    { label: 'Media', value: 'Media' },
-    { label: 'Baja', value: 'Baja' }
-  ];
+  
+  priorityOptions: PriorityOption[] = [];
+  statusOptions: StatusOption[] = [];
+  categoriaOptions: CategoryOption[] = [];
 
-  statusOptions = [
-    { label: 'Pendiente', value: 'Pendiente' },
-    { label: 'En progreso', value: 'En progreso' },
-    { label: 'Completada', value: 'Completada' }
-  ];
+  
+  constructor(private taskOptionsService: TaskOptionsService) {}
 
-  minDate: Date = new Date();
+  ngOnInit() {
+
+    this.priorityOptions = this.taskOptionsService.getPriorityOptions();
+    this.statusOptions = this.taskOptionsService.getStatusOptions();
+    this.categoriaOptions = this.taskOptionsService.getCategoriaOptions();
+  }
   
   onSave() {
     this.save.emit(this.task); 

@@ -18,6 +18,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CalendarModule } from 'primeng/calendar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { BadgeModule } from 'primeng/badge';    
+import { ProgressBarModule } from 'primeng/progressbar'; 
+
 
 @NgModule({
   declarations: [
@@ -41,13 +44,16 @@ import { ToastModule } from 'primeng/toast';
     AvatarModule,
     InputTextareaModule,
     CalendarModule,
-    ConfirmDialogModule, ToastModule
+    ConfirmDialogModule, 
+    ToastModule,
+    BadgeModule,
+    ProgressBarModule
   ],
   exports : [
     TableModule
   ],
   providers:[
-    
+  
   ]
 })
 export class TaskModule {}
