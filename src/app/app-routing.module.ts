@@ -14,7 +14,7 @@ const routes: Routes = [
     path: 'reset-password',
     component: ResetPasswordComponent
   },
-
+  { path: 'register', component: RegisterComponent },
   { 
     path: 'login', 
     loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule)

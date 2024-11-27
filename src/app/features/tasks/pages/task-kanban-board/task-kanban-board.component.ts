@@ -4,6 +4,9 @@ import { Task } from '../../../../core/models/task.model';
 import { CdkDragDrop, transferArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
 import { TaskOptionsService } from '../../../../core/services/task/task-options.service';
 
+// Autor: Roberto Cabrera C.
+// Descripción: Este componente tipo kanban para visualizar y actualizar los estados
+
 @Component({
   selector: 'app-task-kanban-board',
   templateUrl: './task-kanban-board.component.html',

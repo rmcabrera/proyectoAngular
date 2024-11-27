@@ -1,19 +1,19 @@
 <div class="kanban-board">
-  <div class="kanban-column" *ngFor="let estado of estados">
+  <div class="kanban-column" [ngClass]="estado | lowercase" *ngFor="let estado of estados">
     <h3>{{ estado }}</h3>
     <div
       cdkDropList
       [cdkDropListData]="tareas[estado]"
-      [cdkDropListConnectedTo]="estados"  
+      [cdkDropListConnectedTo]="estados"
       class="task-list"
-      [id]="estado"  
-      (cdkDropListDropped)="moverTarea($event)"  
+      [id]="estado"
+      (cdkDropListDropped)="moverTarea($event)"
     >
       <div
         class="task-card"
         *ngFor="let tarea of tareas[estado]"
         cdkDrag
-        [cdkDragData]="tarea" 
+        [cdkDragData]="tarea"
       >
         <h4>{{ tarea.titulo }}</h4>
         <p>{{ tarea.descripcion }}</p>

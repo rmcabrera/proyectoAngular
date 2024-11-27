@@ -1,6 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Timestamp } from 'firebase/firestore';
 
+// Autor: Roberto Cabrera C.
+// Descripción:  
+
 @Pipe({
   name: 'timestampToDate'
 })
