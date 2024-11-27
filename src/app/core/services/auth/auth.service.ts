@@ -43,4 +43,18 @@ export class AuthService {
         });
     });
   }
+
+  // Método para enviar un correo de reseteo de contraseña
+  resetPassword(email: string): Observable<void> {
+    return new Observable((observer) => {
+      this.afAuth.sendPasswordResetEmail(email)
+        .then(() => {
+          observer.next();
+          observer.complete();
+        })
+        .catch((error) => {
+          observer.error(error);
+        });
+    });
+  }
 }

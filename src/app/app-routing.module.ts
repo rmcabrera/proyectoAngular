@@ -5,9 +5,15 @@ import { PageNotFoundComponent } from './shared/components/page-not-found/page-n
 import { WelcomeComponent } from './shared/components/welcome/welcome.component';
 import { MainLayoutComponent } from './shared/components/main-layout/main-layout.component';
 import { RegisterComponent } from './features/auth/components/register/register.component';
+import { ResetPasswordComponent } from './features/auth/components/reset-password/reset-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
+
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent
+  },
 
   { 
     path: 'login', 
