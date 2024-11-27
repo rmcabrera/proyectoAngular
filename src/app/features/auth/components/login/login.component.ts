@@ -47,7 +47,9 @@ export class LoginComponent {
         (user) => {
           this.user = user;
           console.log('Usuario logueado:', user);
-          this.router.navigate(['/dashboard']); // Redirige al dashboard después del login
+          console.log('TOKEN:', this.user.getIdToken());
+          localStorage.setItem('token', this.user.getIdToken() || '');
+          this.router.navigate(['/main']); // Redirige al dashboard después del login
         },
         (error) => {
           console.error('Error de login con Google:', error);
