@@ -1,3 +1,9 @@
+<p-toolbar>
+  <div class="p-toolbar-group-start">
+    <label class="text-2xl">Estado de Tareas</label>
+  </div>
+</p-toolbar>
+
 <div class="kanban-board">
   <div class="kanban-column" [ngClass]="estado | lowercase" *ngFor="let estado of estados">
     <h3>{{ estado }}</h3>

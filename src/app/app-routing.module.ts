@@ -30,12 +30,6 @@ const routes: Routes = [
         loadChildren: () => import('./features/tasks/tasks.module').then(m => m.TaskModule),
         canActivate: [AuthGuard]
       },      
-      { 
-        path: 'register', 
-        //loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule),
-        component: RegisterComponent,
-        canActivate: [AuthGuard]
-      },
       { path: '', component: WelcomeComponent, pathMatch: 'full' }, 
       { path: '**', component: PageNotFoundComponent }, 
     ],
