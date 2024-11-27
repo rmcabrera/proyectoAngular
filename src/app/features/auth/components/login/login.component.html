@@ -1,6 +1,16 @@
 <div class="login-container">
   <div class="login-card p-shadow-3">
     <h2 class="p-text-center">Log in</h2>
+
+    <button
+      pButton
+      label="Iniciar sesión con Google"
+      class="p-button p-button-rounded p-button-primary p-button-lg"
+      (click)="loginWithGoogle()"
+    ></button>
+
+    <app-google-button (onClick)="loginWithGoogle()" />
+
     <p class="p-text-center">Please enter your details</p>
     <form (ngSubmit)="onSubmit()" class="p-fluid">
       <div class="p-field">

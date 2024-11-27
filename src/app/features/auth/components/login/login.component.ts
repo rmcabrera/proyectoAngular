@@ -13,6 +13,7 @@ export class LoginComponent {
   password: string = 'sunatdevelop'; 
   rememberMe: boolean = false; 
   errorMessage : string = '';
+  user: any;
 
   constructor(
     private authService: AuthService, 
@@ -39,5 +40,19 @@ export class LoginComponent {
       
     }
   }
+
+    // Método para iniciar sesión con Google
+    loginWithGoogle() {
+      this.authService.loginWithGoogle().subscribe(
+        (user) => {
+          this.user = user;
+          console.log('Usuario logueado:', user);
+          this.router.navigate(['/dashboard']); // Redirige al dashboard después del login
+        },
+        (error) => {
+          console.error('Error de login con Google:', error);
+        }
+      );
+    }
 
 }

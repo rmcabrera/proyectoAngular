@@ -19,6 +19,7 @@ import { PanelModule } from 'primeng/panel';
 import { ToastrModule } from 'ngx-toastr';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { GoogleButtonComponent } from './ui/google-button/google-button.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
     CardModule,
     AuthModule,
     PanelModule,
+    GoogleButtonComponent,
     AngularFireModule.initializeApp(environment.firebase),
     ToastrModule.forRoot(),  
   ],
