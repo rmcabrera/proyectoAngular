@@ -10,7 +10,7 @@ import { Timestamp } from 'firebase/firestore';
 export class TaskFormComponent {
 
   @Input() task: Task = {
-    id: 0,
+    id: '',
     titulo: '',
     descripcion: '',
     prioridad: 'Media',
@@ -21,7 +21,6 @@ export class TaskFormComponent {
     asignado: '',
     comentario: '',
     progreso: 0,
-    idunique: ''
   };
 
   @Input() display: boolean = false; 

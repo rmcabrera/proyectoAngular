@@ -17,7 +17,8 @@ import { CardModule } from 'primeng/card';
 import { SharedsModule } from './shared/shareds.module';
 import { PanelModule } from 'primeng/panel';
 import { ToastrModule } from 'ngx-toastr';
-
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -34,13 +35,15 @@ import { ToastrModule } from 'ngx-toastr';
     CardModule,
     AuthModule,
     PanelModule,
-    AngularFireModule.initializeApp(environment.firebase),  
+    AngularFireModule.initializeApp(environment.firebase),
     ToastrModule.forRoot(),  
   ],
   exports : [
     
   ],
   providers: [
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
     AuthService, 
     AuthGuard,
     provideClientHydration(),

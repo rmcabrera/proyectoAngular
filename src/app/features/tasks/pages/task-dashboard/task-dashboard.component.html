@@ -57,12 +57,6 @@
   </ng-template>
 </p-table>
 
-<div class="card flex justify-content-center gap-2">
-  <p-confirmDialog #confirm></p-confirmDialog>
-</div>
-
-
-
 <app-task-form 
   [task]="selectedTask" 
   [(display)]="displayDialog" 
@@ -70,3 +64,5 @@
   (cancel)="hideDialog()">
 </app-task-form>
 
+<p-confirmDialog></p-confirmDialog>
+<p-toast></p-toast>
