@@ -13,9 +13,9 @@ export class SidebarComponent {
     constructor(private router: Router, private route: ActivatedRoute) {}
 
     navigateTo(childRoute: string): void {
-      this.router.navigate([childRoute], { relativeTo: this.route }); 
+      console.log(childRoute)
+      this.router.navigate([`/main/${childRoute}`]); 
     }
-
     onClose() {
         this.visible = false;
         this.visibleChange.emit(this.visible);

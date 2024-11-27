@@ -5,6 +5,9 @@ import { PriorityOption } from '../../../../core/models/priority-option.model';
 import { StatusOption } from '../../../../core/models/status-option.model';
 import { CategoryOption } from '../../../../core/models/category-option.model';
 
+// Autor: Roberto Cabrera C.
+// Descripción: Este componente para registro y edicion de tareas
+
 @Component({
   selector: 'app-task-form',
   templateUrl: './task-form.component.html',

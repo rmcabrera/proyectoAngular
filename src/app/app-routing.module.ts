@@ -14,7 +14,7 @@ const routes: Routes = [
     path: 'reset-password',
     component: ResetPasswordComponent
   },
-
+  { path: 'register', component: RegisterComponent },
   { 
     path: 'login', 
     loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule)
@@ -26,10 +26,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { 
-        path: 'tasks', 
+        path: '', 
         loadChildren: () => import('./features/tasks/tasks.module').then(m => m.TaskModule),
         canActivate: [AuthGuard]
-      },
+      },      
       { 
         path: 'register', 
         //loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule),

@@ -6,6 +6,9 @@ import { TaskService } from '../../../../core/services/task/task.service';
 import { CategoryOption } from '../../../../core/models/category-option.model';
 import { TaskOptionsService } from '../../../../core/services/task/task-options.service';
 
+// Autor: Roberto Cabrera C.
+// Descripción: Este componente listado de tareas
+
 @Component({
   selector: 'app-task-dashboard',
   templateUrl: './task-dashboard.component.html',
