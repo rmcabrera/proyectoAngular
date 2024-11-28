@@ -23,14 +23,19 @@ export class AuthService {
 
    }
 
-   async logout() {
-    return await this.afAuth.signOut();
+  async logout() {
+    await this.afAuth.signOut();
     this.isAuthenticated = false;
     this.router.navigate(['/login']);
    }
 
-  isLoggedIn(): boolean {
-    return this.isAuthenticated;
+  get authState(): Observable<firebase.User | null> {
+    return this.afAuth.authState; 
+  }
+
+  async isLoggedIn(): Promise<boolean> {
+    const user = await this.afAuth.currentUser;
+    return !!user;
   }
 
   register(email: string, password: string): Observable<any> {
@@ -74,4 +79,9 @@ export class AuthService {
           });
       });
     }
+
+  async getCurrentUserId(): Promise<string | null> {
+    const user = await this.afAuth.currentUser;
+    return user ? user.uid : null; 
+  }
 }

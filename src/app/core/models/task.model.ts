@@ -12,5 +12,6 @@ export interface Task {
     asignado : string;
     comentario : string;      
     progreso : number; 
+    idusuario : string;
   }
   

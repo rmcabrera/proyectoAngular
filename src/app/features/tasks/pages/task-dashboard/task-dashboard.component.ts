@@ -1,10 +1,11 @@
-import { Component, ChangeDetectorRef, OnInit  } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit, ViewChild  } from '@angular/core';
 import { Task } from '../../../../core/models/task.model';
 import { ConfirmationService, MessageService } from 'primeng/api'; 
 import { ToastrService } from 'ngx-toastr';
 import { TaskService } from '../../../../core/services/task/task.service';
 import { CategoryOption } from '../../../../core/models/category-option.model';
 import { TaskOptionsService } from '../../../../core/services/task/task-options.service';
+import { TaskFormComponent } from '../../components/task-form/task-form.component';
 
 // Autor: Roberto Cabrera C.
 // Descripción: Este componente listado de tareas
@@ -16,7 +17,8 @@ import { TaskOptionsService } from '../../../../core/services/task/task-options.
   providers: [ConfirmationService, MessageService]
 })
 export class TaskDashboardComponent implements OnInit{
- 
+  @ViewChild(TaskFormComponent) taskFormComponent!: TaskFormComponent;  // Obtén referencia al formulario
+
   tasks: Task[] = []; 
   selectedTask: Task = this.createEmptyTask();
   displayDialog: boolean = false;
@@ -83,13 +85,22 @@ export class TaskDashboardComponent implements OnInit{
   openNewTask() {
     this.selectedTask = this.createEmptyTask();
     this.displayDialog = true;
+    this.resetForm(); 
   }
 
   onEditTask(task: Task) {
     this.selectedTask = { ...task };
     this.displayDialog = true;
+    if (this.taskFormComponent) {
+      this.taskFormComponent.taskForm.patchValue(this.selectedTask);
+    }
   }
 
+  resetForm() {
+    if (this.taskFormComponent) {
+      this.taskFormComponent.resetForm();  
+    }
+  }
 
   saveTask(task: Task) {
 
@@ -154,6 +165,7 @@ export class TaskDashboardComponent implements OnInit{
       asignado: '',
       comentario: '',
       progreso: 0,
+      idusuario :'',
     };
   }
 
