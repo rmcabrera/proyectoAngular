@@ -11,7 +11,7 @@
         shape="circle">
       </p-avatar>
       <span class="font-bold white-space-nowrap">
-        {{ 'Nuevo Registro' }}
+        {{ task.id ? 'Editar Tarea' : 'Nueva Tarea' }}
       </span>
     </div>
   </ng-template>
@@ -20,16 +20,19 @@
     Complete la información de la tarea.
   </span>
 
-  <div class="p-fluid grid">
+  <form [formGroup]="taskForm" class="p-fluid grid">
     <div class="field col-12">
       <label for="taskTitle">Título</label>
       <input 
         id="taskTitle" 
         type="text" 
         pInputText 
-        [(ngModel)]="task.titulo" 
-        placeholder="Título de la tarea" 
-        required>
+        formControlName="titulo" 
+        placeholder="Título de la tarea"
+      >
+      <small *ngIf="taskForm.get('titulo')?.invalid && taskForm.get('titulo')?.touched" class="p-error">
+        El título es obligatorio.
+      </small>
     </div>
 
     <div class="field col-12">
@@ -38,65 +41,74 @@
         id="taskDescription" 
         rows="3" 
         pInputTextarea 
-        [(ngModel)]="task.descripcion" 
-        placeholder="Breve descripción de la tarea">
-      </textarea>
+        formControlName="descripcion" 
+        placeholder="Breve descripción de la tarea"
+      ></textarea>
+      <small *ngIf="taskForm.get('descripcion')?.invalid && taskForm.get('descripcion')?.touched" class="p-error">
+        La descripción es obligatoria y debe tener al menos 10 caracteres.
+      </small>
     </div>
 
     <div class="field col-6">
       <label for="taskPriority">Prioridad</label>
       <p-dropdown 
         id="taskPriority" 
-        [(ngModel)]="task.prioridad" 
+        formControlName="prioridad" 
         [options]="priorityOptions" 
         optionLabel="label" 
         optionValue="value" 
-        placeholder="Seleccionar">
-      </p-dropdown>
+        placeholder="Seleccionar"
+      ></p-dropdown>
     </div>
 
     <div class="field col-6">
       <label for="taskStatus">Estado</label>
       <p-dropdown 
         id="taskStatus" 
-        [(ngModel)]="task.estado" 
+        formControlName="estado" 
         [options]="statusOptions" 
         optionLabel="label" 
         optionValue="value" 
-        placeholder="Seleccionar">
-      </p-dropdown>
+        placeholder="Seleccionar"
+      ></p-dropdown>
     </div>
 
     <div class="field col-6">
       <label for="taskCreationDate">Fecha de Creación</label>
       <p-calendar 
         id="taskCreationDate" 
-        [(ngModel)]="task.creacion" 
+        formControlName="creacion" 
         dateFormat="dd/mm/yy" 
-        placeholder="Seleccionar Fecha">
-      </p-calendar>
+        placeholder="Seleccionar Fecha"
+      ></p-calendar>
+      <small *ngIf="taskForm.get('creacion')?.invalid && taskForm.get('creacion')?.touched" class="p-error">
+        La fecha de creación es obligatoria.
+      </small>
     </div>
 
     <div class="field col-6">
       <label for="taskDueDate">Fecha de Vencimiento</label>
       <p-calendar 
         id="taskDueDate" 
-        [(ngModel)]="task.vencimiento" 
+        formControlName="vencimiento" 
         dateFormat="dd/mm/yy" 
-        placeholder="Seleccionar Fecha">
-      </p-calendar>
+        placeholder="Seleccionar Fecha"
+      ></p-calendar>
+      <small *ngIf="taskForm.get('vencimiento')?.invalid && taskForm.get('vencimiento')?.touched" class="p-error">
+        La fecha de vencimiento es obligatoria.
+      </small>
     </div>
 
     <div class="field col-12">
       <label for="taskCategory">Categoría</label>
       <p-dropdown 
         id="taskCategory" 
-        [(ngModel)]="task.categoria" 
+        formControlName="categoria" 
         [options]="categoriaOptions" 
         optionLabel="label" 
         optionValue="value" 
-        placeholder="Seleccionar categoría">
-      </p-dropdown>
+        placeholder="Seleccionar categoría"
+      ></p-dropdown>
     </div>
 
     <div class="field col-12">
@@ -105,8 +117,11 @@
         id="taskAssigned" 
         type="text" 
         pInputText 
-        [(ngModel)]="task.asignado" 
+        formControlName="asignado" 
         placeholder="Nombre del responsable">
+        <small *ngIf="taskForm.get('asignado')?.invalid && taskForm.get('asignado')?.touched" class="p-error">
+          Persona asignada es obligatoria y debe tener al menos 10 caracteres.
+        </small>
     </div>
 
     <div class="field col-12">
@@ -115,7 +130,7 @@
         id="taskComment" 
         rows="3" 
         pInputTextarea 
-        [(ngModel)]="task.comentario" 
+        formControlName="comentario" 
         placeholder="Comentarios adicionales">
       </textarea>
     </div>
@@ -123,15 +138,14 @@
     <div class="field col-12">
       <label for="taskProgress">Progreso</label>
       <p-slider 
-        [(ngModel)]="task.progreso" 
+        formControlName="progreso" 
         [min]="0" 
         [max]="100" 
         [step]="10">
       </p-slider>
-      <div class="text-right">{{ task.progreso }}%</div>
+      <div class="text-right">{{ taskForm.get('progreso')?.value }}%</div>
     </div>
-    
-  </div>
+  </form>
 
   <ng-template pTemplate="footer">
     <div class="flex justify-content-end gap-3">
@@ -148,7 +162,4 @@
       </p-button>
     </div>
   </ng-template>
-
-
-
 </p-dialog>

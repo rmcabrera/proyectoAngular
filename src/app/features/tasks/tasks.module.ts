@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskRoutingModule } from './tasks-routing.module';
-
 import { FormsModule , ReactiveFormsModule} from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
@@ -51,13 +50,15 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     ToastModule,
     BadgeModule,
     ProgressBarModule,
-    DragDropModule
+    DragDropModule,
+    ReactiveFormsModule,
   ],
   exports : [
-    TableModule
+    TableModule,
+    
   ],
   providers:[
-  
+   
   ]
 })
 export class TaskModule {}
