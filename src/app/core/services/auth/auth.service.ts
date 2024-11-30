@@ -19,6 +19,13 @@ export class AuthService {
     const userCredential = await this.afAuth.signInWithEmailAndPassword(email, password) ;
     const token = await userCredential.user?.getIdToken();
 
+    if (token) {
+      const userName = userCredential.user?.displayName || userCredential.user?.email || 'Desconocido';
+      localStorage.setItem('authToken', token);
+      localStorage.setItem('userName', userName);
+      this.isAuthenticated = true;
+    }
+
     return token;
 
    }
@@ -26,6 +33,7 @@ export class AuthService {
   async logout() {
     await this.afAuth.signOut();
     this.isAuthenticated = false;
+    localStorage.removeItem('userName'); 
     this.router.navigate(['/login']);
    }
 
@@ -35,7 +43,6 @@ export class AuthService {
 
   async isLoggedIn(): Promise<boolean> {
     const user = await this.afAuth.currentUser;
-    localStorage.removeItem('userName'); 
     return !!user;
   }
 
@@ -90,9 +97,7 @@ export class AuthService {
   async getCurrentUser(): Promise<firebase.User | null> {
     const user = await this.afAuth.currentUser;
     if (user) {
-      // Si displayName es null o undefined, usa el email como valor alternativo
       const userName = user.displayName || user.email || 'Desconocido';
-      // Guarda el nombre de usuario en localStorage
       localStorage.setItem('userName', userName);
       return user;
     }

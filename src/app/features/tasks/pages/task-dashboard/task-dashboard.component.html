@@ -39,16 +39,35 @@
 
   <ng-template pTemplate="header">
     <tr>
-      <th [ngClass]="'center-align'" pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
-      <th [ngClass]="'center-align'" pSortableColumn="titulo">Título <p-sortIcon field="titulo"></p-sortIcon></th>
-      <th [ngClass]="'center-align'" pSortableColumn="descripcion">Descripción <p-sortIcon field="descripcion"></p-sortIcon></th>
-      <th [ngClass]="'center-align'" pSortableColumn="prioridad">Prioridad <p-sortIcon field="prioridad"></p-sortIcon></th>
-      <th [ngClass]="'center-align'" pSortableColumn="estado">Estado <p-sortIcon field="estado"></p-sortIcon></th>
-      <th [ngClass]="'center-align'" pSortableColumn="categoria">Categoría <p-sortIcon field="categoria"></p-sortIcon></th>
-      <th [ngClass]="'center-align'" pSortableColumn="creacion">Fecha de Creación <p-sortIcon field="creacion"></p-sortIcon></th>
-      <th [ngClass]="'center-align'" pSortableColumn="vencimiento">Fecha de Vencimiento <p-sortIcon field="vencimiento"></p-sortIcon></th>
-      <th [ngClass]="'center-align'" pSortableColumn="progreso">Progreso <p-sortIcon field="progreso"></p-sortIcon></th>
-      <th [ngClass]="'center-align'">Acciones</th>
+    
+      <th [ngClass]="'center-align'" pSortableColumn="id" style="width:5%">
+        ID <p-sortIcon field="id" />
+      </th>
+      <th [ngClass]="'center-align'" pSortableColumn="titulo" style="width:13%">
+        Título <p-sortIcon field="titulo" />
+      </th>
+      <th [ngClass]="'center-align'" pSortableColumn="descripcion" style="width:30%">
+        Descripción <p-sortIcon field="descripcion" />
+      </th>
+      <th [ngClass]="'center-align'" pSortableColumn="prioridad" style="width:8%">
+        Prioridad <p-sortIcon field="prioridad" />
+      </th>
+      <th [ngClass]="'center-align'" pSortableColumn="estado" style="width:8%">
+        Estado <p-sortIcon field="estado" />
+      </th>
+      <th [ngClass]="'center-align'" pSortableColumn="categoria" style="width:8%">
+        Categoría <p-sortIcon field="categoria" />
+      </th>
+      <th [ngClass]="'center-align'" pSortableColumn="creacion" style="width:9%">
+        Creación <p-sortIcon field="creacion" />
+      </th>
+      <th [ngClass]="'center-align'" pSortableColumn="vencimiento" style="width:9%">
+        Vencimiento <p-sortIcon field="vencimiento" />
+      </th>
+     <!-- <th [ngClass]="'center-align'" pSortableColumn="Progreso" style="width:8%">
+        Progreso <p-sortIcon field="Progreso" />
+      </th> -->
+      <th [ngClass]="'center-align'"  style="width:10%">Acciones</th>
     </tr>
   </ng-template>
 
@@ -59,13 +78,13 @@
    
       <td>
         <span *ngIf="!task.isExpanded">
-          {{ task.descripcion | truncate:200 }}
+          {{ task.descripcion | truncate:100 }}
         </span>
         <span *ngIf="task.isExpanded">
           {{ task.descripcion }}
         </span> 
         <span 
-          *ngIf="task.descripcion.length > 200" 
+          *ngIf="task.descripcion.length > 100" 
           class="text-link p-ml-2" 
           style="color: blue; cursor: pointer; text-decoration: underline;"
           (click)="task.isExpanded = !task.isExpanded">
@@ -84,10 +103,10 @@
       </td>
       <td [ngClass]="'center-align'">{{ task.creacion | timestampToDate  }}</td>
       <td [ngClass]="'center-align'">{{ task.vencimiento  | timestampToDate}}</td>
-      <td>
+    <!--  <td [ngClass]="'center-align'">
         <p-progressBar [value]="task.progreso" [showValue]="true" styleClass="p-mb-2"></p-progressBar>
-      </td>
-      <td>
+      </td>-->
+      <td [ngClass]="'center-align'">
         <button 
           pButton 
           type="button" 
