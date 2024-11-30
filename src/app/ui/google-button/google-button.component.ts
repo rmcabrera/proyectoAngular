@@ -1,11 +1,14 @@
-import { Component, output } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-google-button',
   standalone: true,
-  imports: [],
   templateUrl: './google-button.component.html',
 })
 export class GoogleButtonComponent {
-  onClick = output<void>();
+  @Output() onClick: EventEmitter<void> = new EventEmitter<void>(); 
+
+  triggerClick() {
+    this.onClick.emit(); 
+  }
 }

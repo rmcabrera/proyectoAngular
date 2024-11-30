@@ -15,6 +15,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { BadgeModule } from 'primeng/badge';
 import { MenuModule } from 'primeng/menu';
 import { TimestampToDatePipe } from './pipes/timestamp-to-date.pipe';
+import { SharedModule } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { TimestampToDatePipe } from './pipes/timestamp-to-date.pipe';
     PanelModule,
     AvatarModule,
     BadgeModule,
-    MenuModule
+    MenuModule,
+    SharedModule
   ],
   exports: [
     SidebarModule,
@@ -48,7 +50,8 @@ import { TimestampToDatePipe } from './pipes/timestamp-to-date.pipe';
     SidebarComponent,
     BadgeModule,
     MenuModule,
-    TimestampToDatePipe
+    TimestampToDatePipe,
+    SharedModule
   ],
 })
 export class SharedsModule { }
