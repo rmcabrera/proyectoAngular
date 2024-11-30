@@ -22,7 +22,21 @@
         [cdkDragData]="tarea"
       >
         <h4>{{ tarea.titulo }}</h4>
-        <p>{{ tarea.descripcion }}</p>
+        <p>
+          <span *ngIf="!isTaskExpanded(tarea)">
+            {{ tarea.descripcion | truncate:100 }}
+          </span>
+          <span *ngIf="isTaskExpanded(tarea)">
+            {{ tarea.descripcion }}
+          </span>
+          <span 
+            *ngIf="tarea.descripcion.length > 100" 
+            class="text-link" 
+            style="color: blue; cursor: pointer; text-decoration: underline;"
+            (click)="toggleTaskExpansion(tarea)">
+            {{ isTaskExpanded(tarea) ? 'Ver menos' : 'Ver más' }}
+          </span>
+        </p>
       </div>
     </div>
   </div>

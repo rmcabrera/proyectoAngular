@@ -8,6 +8,20 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';  
 import { ButtonModule } from 'primeng/button';
 import { AvatarModule } from 'primeng/avatar';
+import { AuthService } from '../../../core/services/auth/auth.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { of } from 'rxjs';
+
+// Mock de AngularFireAuth
+class MockAngularFireAuth {
+  currentUser = of({ displayName: 'Test User', email: 'test@example.com' });
+}
+
+// Mock de AuthService
+class MockAuthService {
+  currentUser = new MockAngularFireAuth().currentUser; 
+}
+
 @Component({
   selector: 'app-header',
   template: ''
@@ -23,7 +37,11 @@ describe('MainLayoutComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [MainLayoutComponent, MockHeaderComponent, SidebarComponent],
-      imports: [RouterTestingModule, SidebarModule, BrowserAnimationsModule, ButtonModule, AvatarModule]
+      imports: [RouterTestingModule, SidebarModule, BrowserAnimationsModule, ButtonModule, AvatarModule],
+      providers: [
+        { provide: AuthService, useClass: MockAuthService }, 
+        { provide: AngularFireAuth, useClass: MockAngularFireAuth }, 
+      ]
     }).compileComponents();
   });
 

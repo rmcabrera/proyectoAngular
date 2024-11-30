@@ -19,6 +19,7 @@ import { BadgeModule } from 'primeng/badge';
 import { TimestampToDatePipe } from '../../../../shared/pipes/timestamp-to-date.pipe';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TruncatePipe } from '../../../../shared/pipes/truncate.pipe';
 
 class MockTaskService {
   getTasks = jasmine.createSpy().and.returnValue(of([{
@@ -75,7 +76,9 @@ describe('TaskDashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TaskDashboardComponent, TaskFormComponent, TimestampToDatePipe ],
+      declarations: [ TaskDashboardComponent, TaskFormComponent, TimestampToDatePipe,
+          TruncatePipe
+       ],
       imports: [
         DialogModule,
         DropdownModule,

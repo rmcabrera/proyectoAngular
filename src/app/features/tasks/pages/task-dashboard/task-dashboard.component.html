@@ -56,7 +56,23 @@
     <tr>
       <td>{{ i + 1 }}</td>
       <td>{{ task.titulo }}</td>
-      <td>{{ task.descripcion }}</td>
+   
+      <td>
+        <span *ngIf="!task.isExpanded">
+          {{ task.descripcion | truncate:200 }}
+        </span>
+        <span *ngIf="task.isExpanded">
+          {{ task.descripcion }}
+        </span> 
+        <span 
+          *ngIf="task.descripcion.length > 200" 
+          class="text-link p-ml-2" 
+          style="color: blue; cursor: pointer; text-decoration: underline;"
+          (click)="task.isExpanded = !task.isExpanded">
+          {{ task.isExpanded ? 'Ver menos' : 'Ver más' }}
+        </span>
+      </td>
+      
       <td [ngClass]="'center-align'">
         <p-badge [value]="task.prioridad" [styleClass]="getPriorityClass(task.prioridad)" styleClass="p-mr-2"></p-badge>
       </td>

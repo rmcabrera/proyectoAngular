@@ -7,6 +7,8 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Task } from '../../../../core/models/task.model';
 import { ToolbarModule } from 'primeng/toolbar';
 import { DragDropModule } from '@angular/cdk/drag-drop'; 
+import { TruncatePipe } from '../../../../shared/pipes/truncate.pipe';
+
 describe('TaskKanbanBoardComponent', () => {
   let component: TaskKanbanBoardComponent;
   let fixture: ComponentFixture<TaskKanbanBoardComponent>;
@@ -31,7 +33,7 @@ describe('TaskKanbanBoardComponent', () => {
     };
 
     await TestBed.configureTestingModule({
-      declarations: [TaskKanbanBoardComponent],
+      declarations: [TaskKanbanBoardComponent, TruncatePipe],
       imports : [ToolbarModule, DragDropModule],
       providers: [
         { provide: TaskService, useValue: taskServiceStub },

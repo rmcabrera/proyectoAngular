@@ -35,6 +35,7 @@ export class AuthService {
 
   async isLoggedIn(): Promise<boolean> {
     const user = await this.afAuth.currentUser;
+    localStorage.removeItem('userName'); 
     return !!user;
   }
 
@@ -65,23 +66,37 @@ export class AuthService {
     });
   }
 
-    // Iniciar sesión con Google
-    loginWithGoogle(): Observable<firebase.User | null> {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      return new Observable((observer) => {
-        this.afAuth.signInWithPopup(provider)
-          .then((result) => {
-            observer.next(result.user);
-            observer.complete();
-          })
-          .catch((error) => {
-            observer.error(error);
-          });
-      });
-    }
+  // Iniciar sesión con Google
+  loginWithGoogle(): Observable<firebase.User | null> {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return new Observable((observer) => {
+      this.afAuth.signInWithPopup(provider)
+        .then((result) => {
+          observer.next(result.user);
+          observer.complete();
+        })
+        .catch((error) => {
+          observer.error(error);
+        });
+    });
+  }
 
   async getCurrentUserId(): Promise<string | null> {
     const user = await this.afAuth.currentUser;
     return user ? user.uid : null; 
   }
+
+
+  async getCurrentUser(): Promise<firebase.User | null> {
+    const user = await this.afAuth.currentUser;
+    if (user) {
+      // Si displayName es null o undefined, usa el email como valor alternativo
+      const userName = user.displayName || user.email || 'Desconocido';
+      // Guarda el nombre de usuario en localStorage
+      localStorage.setItem('userName', userName);
+      return user;
+    }
+    return null;
+  }
 }
+

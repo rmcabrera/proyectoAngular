@@ -16,6 +16,8 @@ export class TaskKanbanBoardComponent implements OnInit {
   estados: string[] = []; 
   tareas: { [key: string]: Task[] } = {}; 
 
+  expandedTasks: Map<any, boolean> = new Map();
+
   constructor(private taskService: TaskService, private taskOptionsService: TaskOptionsService) {}
 
   ngOnInit() {
@@ -40,6 +42,16 @@ export class TaskKanbanBoardComponent implements OnInit {
         }
       });
     });
+  }
+
+    
+  isTaskExpanded(task: any): boolean {
+    return this.expandedTasks.get(task) || false;
+  }
+
+  toggleTaskExpansion(task: any): void {
+    const isExpanded = this.isTaskExpanded(task);
+    this.expandedTasks.set(task, !isExpanded);
   }
 
   moverTarea(event: CdkDragDrop<Task[]>) {

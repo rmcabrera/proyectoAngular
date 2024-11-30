@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,8 +10,17 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class SidebarComponent {
     @Input() visible: boolean = false;
     @Output() visibleChange = new EventEmitter<boolean>();
+    userName: string | null = null; 
 
-    constructor(private router: Router, private route: ActivatedRoute) {}
+    constructor(private router: Router, private route: ActivatedRoute,
+        private authService: AuthService
+    ) {}
+
+
+    ngOnInit() {
+      const userName = localStorage.getItem('userName');
+      this.userName = userName ? userName : 'Invitado'; 
+    }
 
     navigateTo(childRoute: string): void {
       console.log(childRoute)

@@ -19,7 +19,7 @@ export class LoginComponent {
     private authService: AuthService, 
     private router: Router,
     private toastr: ToastrService,
-    private route: ActivatedRoute // Para obtener los parámetros de la ruta
+    private route: ActivatedRoute
   ) {}
 
   async onSubmit() {
@@ -27,8 +27,7 @@ export class LoginComponent {
       const token = await this.authService.login(this.email, this.password);
       localStorage.setItem('token', token || '');
       console.log('Inicio de sesión exitoso. Token:', token);
-      //this.toastr.success('Operación exitosa', 'Exito');
-      // Redirigir al usuario a la página anterior o al inicio por defecto
+      
       const returnUrl = '/main'; 
       this.router.navigate([returnUrl]);
 
