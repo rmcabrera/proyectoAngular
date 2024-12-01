@@ -63,12 +63,4 @@ describe('ResetPasswordComponent', () => {
     expect(component.errorMessage).toBe('Error: Correo no encontrado');
   });
 
-  it('should display an error message if no email is provided', () => {
-    component.resetPasswordForm.setValue({ email: '' });
-    component.onResetPassword();
-    fixture.detectChanges();
-    
-    expect(component.errorMessage).toBe('Por favor, ingrese un correo electrónico.');
-  });
-
 });

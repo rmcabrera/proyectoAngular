@@ -28,11 +28,6 @@ export class ResetPasswordComponent implements OnInit{
     if (this.resetPasswordForm.invalid) {
       this.resetPasswordForm.markAllAsTouched(); 
       this.toastr.error('Por favor, ingresa un correo válido', 'Error');
-      
-      // Verifica si el campo email está vacío y establece el mensaje de error
-      if (!this.resetPasswordForm.get('email')?.value) {
-        this.errorMessage = 'Por favor, ingrese un correo electrónico.';
-      }
   
       return;
     }
