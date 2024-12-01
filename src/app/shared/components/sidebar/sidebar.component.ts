@@ -32,7 +32,7 @@ export class SidebarComponent {
     }
 
     logout() {
-      localStorage.removeItem('token'); 
+      localStorage.removeItem('authToken'); 
       localStorage.removeItem('userName'); 
       this.router.navigate(['/login']); 
     }

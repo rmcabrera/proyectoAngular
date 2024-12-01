@@ -8,6 +8,7 @@ import { AuthService } from '../../../../core/services/auth/auth.service';
 import { LoginComponent } from './login.component';
 import { of } from 'rxjs';
 import { GoogleButtonComponent } from '../../../../ui/google-button/google-button.component';
+import { DividerModule } from 'primeng/divider';
 
 const firebaseConfig = {
   apiKey: 'your-api-key',
@@ -41,7 +42,7 @@ describe('LoginComponent', () => {
         RouterTestingModule,
         ReactiveFormsModule,
         GoogleButtonComponent,
-        FormsModule,
+        FormsModule,DividerModule,
         ToastrModule.forRoot(),
         AngularFireModule.initializeApp(firebaseConfig)
       ],

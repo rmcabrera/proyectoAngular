@@ -79,7 +79,7 @@ describe('SidebarComponent', () => {
     
     component.logout();
 
-    expect(localStorage.removeItem).toHaveBeenCalledWith('token');
+    expect(localStorage.removeItem).toHaveBeenCalledWith('authToken');
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/login']);
   });
 });

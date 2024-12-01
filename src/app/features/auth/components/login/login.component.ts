@@ -25,7 +25,7 @@ export class LoginComponent {
   async onSubmit() {
     try {
       const token = await this.authService.login(this.email, this.password);
-      localStorage.setItem('token', token || '');
+      localStorage.setItem('authToken', token || '');
       console.log('Inicio de sesión exitoso. Token:', token);
       
       const returnUrl = '/main'; 
@@ -47,7 +47,7 @@ export class LoginComponent {
           this.user = user;
           console.log('Usuario logueado:', user);
           console.log('TOKEN:', this.user.getIdToken());
-          localStorage.setItem('token', this.user.getIdToken() || '');
+          localStorage.setItem('authToken', this.user.getIdToken() || '');
           this.router.navigate(['/main']); // Redirige al dashboard después del login
         },
         (error) => {

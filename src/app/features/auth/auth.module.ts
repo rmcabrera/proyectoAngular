@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { GoogleButtonComponent } from '../../ui/google-button/google-button.component';
+import { DividerModule } from 'primeng/divider'
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { GoogleButtonComponent } from '../../ui/google-button/google-button.comp
     PasswordModule,   
     ButtonModule, 
     CheckboxModule,
-    GoogleButtonComponent
+    GoogleButtonComponent,
+    DividerModule
   ],
   
 })

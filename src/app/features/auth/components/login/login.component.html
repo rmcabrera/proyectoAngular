@@ -1,40 +1,55 @@
 <div class="login-container">
   <div class="login-card p-shadow-3">
-    <h2 class="p-text-center">Log in</h2>
+    <h2 class="p-text-center">¡Bienvenido de nuevo!</h2>
+    
+    <div class="p-d-flex p-jc-center p-mb-3">
+      <button
+        pButton
+        type="button"
+        class="google-login-btn p-button-rounded"
+        (click)="loginWithGoogle()"
+      >
+        <i class="pi pi-google" style="margin-right: 8px;"></i>
+        Iniciar sesión con Google
+      </button>
+    </div>
 
-    <app-google-button (onClick)="loginWithGoogle()" />
+    <p-divider align="center">O</p-divider>
 
-    <p class="p-text-center">Please enter your details</p>
+    <p class="p-text-center">Por favor ingresa tus datos</p>
     <form (ngSubmit)="onSubmit()" class="p-fluid">
+    
       <div class="p-field">
+        <label for="email">Correo electrónico</label>
         <span class="p-input-icon-left">
           <i class="pi pi-envelope"></i>
           <input
             id="email"
             type="email"
             pInputText
-            placeholder="Email"
+            placeholder="Ingresa tu correo electrónico"
             [(ngModel)]="email"
             name="email"
           />
         </span>
       </div>
 
-      <div class="p-field">
+      <div class="p-field p-mt-3">
+        <label for="password">Contraseña</label>
         <span class="p-input-icon-left">
           <i class="pi pi-lock"></i>
           <input
             id="password"
             type="password"
             pInputText
-            placeholder="Password"
+            placeholder="Ingresa tu contraseña"
             [(ngModel)]="password"
             name="password"
           />
         </span>
       </div>
 
-      <div class="p-d-flex p-jc-between p-ai-center p-mb-3">
+      <div class="p-d-flex p-jc-between p-ai-center p-mt-3 p-mb-4">
         <div class="p-field-checkbox">
           <p-checkbox
             inputId="remember"
@@ -42,18 +57,23 @@
             [(ngModel)]="rememberMe"
             name="rememberMe"
           ></p-checkbox>
-          <label for="remember">Remember Me</label>
+          <label for="remember">Recuérdame</label>
         </div>
-        <a [routerLink]="'/reset-password'"  class="p-text-secondary">Reset password</a>
-        <a [routerLink]="'/register'"  class="p-text-secondary">Create an account</a>
+        <a [routerLink]="'/reset-password'" class="p-text-secondary">¿Olvidaste tu contraseña?</a>
       </div>
 
       <button
         type="submit"
         pButton
-        label="Log In"
+        label="Iniciar sesión"
         class="p-button p-button-rounded p-button-primary p-button-lg"
       ></button>
+
+
+      <p class="p-text-center p-mt-3">
+        ¿No tienes una cuenta? 
+        <a [routerLink]="'/register'" class="p-text-secondary">Crea una</a>
+      </p>
     </form>
   </div>
 </div>

@@ -46,6 +46,14 @@ export class AuthService {
     return !!user;
   }
 
+  isAuthenticatedToken(): boolean {
+   // return localStorage.getItem('authToken') !== null;
+    if (typeof window !== 'undefined' && !!localStorage.getItem('authToken')) {
+      return true;
+    }
+    return false;
+  }
+
   register(email: string, password: string): Observable<any> {
     return new Observable((observer) => {
       this.afAuth.createUserWithEmailAndPassword(email, password)
@@ -78,8 +86,20 @@ export class AuthService {
     const provider = new firebase.auth.GoogleAuthProvider();
     return new Observable((observer) => {
       this.afAuth.signInWithPopup(provider)
-        .then((result) => {
-          observer.next(result.user);
+        .then(async (result) => {
+          const user = result.user;
+
+          if (user) {
+            const token = await user.getIdToken();  
+            const userName = user.displayName || user.email || 'Desconocido';  
+
+            localStorage.setItem('authToken', token || '');
+            localStorage.setItem('userName', userName); 
+
+            this.isAuthenticated = true;
+          }
+
+          observer.next(user);
           observer.complete();
         })
         .catch((error) => {
