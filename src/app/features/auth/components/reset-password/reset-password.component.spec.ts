@@ -4,6 +4,7 @@ import { AuthService } from '../../../../core/services/auth/auth.service';
 import { of, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ToastrModule } from 'ngx-toastr';  
 
 describe('ResetPasswordComponent', () => {
   let component: ResetPasswordComponent;
@@ -12,12 +13,12 @@ describe('ResetPasswordComponent', () => {
   let mockRouter: jasmine.SpyObj<Router>;
 
   beforeEach(async () => {
-
     mockAuthService = jasmine.createSpyObj('AuthService', ['resetPassword']);
     mockRouter = jasmine.createSpyObj('Router', ['navigate']);
 
     await TestBed.configureTestingModule({
       declarations: [ResetPasswordComponent],
+      imports: [ToastrModule.forRoot()], 
       providers: [
         { provide: AuthService, useValue: mockAuthService },
         { provide: Router, useValue: mockRouter }
@@ -41,7 +42,7 @@ describe('ResetPasswordComponent', () => {
     const mockResponse = of(undefined); 
 
     mockAuthService.resetPassword.and.returnValue(mockResponse);
-    component.email = email;
+    component.resetPasswordForm.setValue({ email });
 
     component.onResetPassword();
     fixture.detectChanges();
@@ -54,7 +55,7 @@ describe('ResetPasswordComponent', () => {
     const mockErrorResponse = throwError(() => new Error('Correo no encontrado')); 
 
     mockAuthService.resetPassword.and.returnValue(mockErrorResponse);
-    component.email = email;
+    component.resetPasswordForm.setValue({ email });
 
     component.onResetPassword();
     fixture.detectChanges();
@@ -63,9 +64,11 @@ describe('ResetPasswordComponent', () => {
   });
 
   it('should display an error message if no email is provided', () => {
-    component.email = ''; 
+    component.resetPasswordForm.setValue({ email: '' });
     component.onResetPassword();
     fixture.detectChanges();
+    
     expect(component.errorMessage).toBe('Por favor, ingrese un correo electrónico.');
   });
+
 });

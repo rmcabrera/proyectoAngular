@@ -7,8 +7,7 @@
   <ng-template pTemplate="header">
     <div class="inline-flex align-items-center justify-content-start gap-3">
       <p-avatar 
-        image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
-        shape="circle">
+         [image]="avatarUrl" shape="circle">
       </p-avatar>
       <span class="font-bold white-space-nowrap">
         {{ task.id ? 'Editar Tarea' : 'Nueva Tarea' }}

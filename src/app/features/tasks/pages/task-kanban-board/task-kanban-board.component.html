@@ -1,42 +1,90 @@
 <p-toolbar>
   <div class="p-toolbar-group-start">
-    <label class="text-2xl">Estado de Tareas</label>
+    <label class="text-3xl font-bold text-gray-800">Estado de Tareas</label>
   </div>
 </p-toolbar>
 
-<div class="kanban-board">
-  <div class="kanban-column" [ngClass]="estado | lowercase" *ngFor="let estado of estados">
-    <h3>{{ estado }}</h3>
+<div class="kanban-board grid grid-cols-3 gap-4 p-4">
+  <div
+    class="kanban-column shadow-lg rounded-lg p-4"
+    [ngClass]="estado | lowercase"
+    *ngFor="let estado of estados"
+  >
+    <h3
+      class="text-lg font-semibold p-2 text-white text-center rounded-t-md"
+      [ngClass]="{
+        'bg-red-500': estado === 'Pendiente',
+        'bg-yellow-400': estado === 'En progreso',
+        'bg-green-500': estado === 'Completada'
+      }"
+    >
+      {{ estado }}
+    </h3>
     <div
       cdkDropList
       [cdkDropListData]="tareas[estado]"
       [cdkDropListConnectedTo]="estados"
-      class="task-list"
+      class="task-list bg-gray-100 rounded-b-md p-2"
       [id]="estado"
       (cdkDropListDropped)="moverTarea($event)"
     >
       <div
-        class="task-card"
+        class="task-card bg-white shadow-sm rounded-lg p-4 mb-2 border-l-4"
+        [ngClass]="{
+          'border-red-400': estado === 'Pendiente',
+          'border-yellow-400': estado === 'En progreso',
+          'border-green-400': estado === 'Completada'
+        }"
         *ngFor="let tarea of tareas[estado]"
         cdkDrag
         [cdkDragData]="tarea"
       >
-        <h4>{{ tarea.titulo }}</h4>
-        <p>
+        <!-- Título de la tarea -->
+        <h4 class="font-semibold text-lg text-gray-700 mb-2">
+          {{ tarea.titulo }}
+        </h4>
+
+        <!-- Descripción de la tarea -->
+        <p class="text-sm text-gray-600 mb-2">
           <span *ngIf="!isTaskExpanded(tarea)">
             {{ tarea.descripcion | truncate:100 }}
           </span>
           <span *ngIf="isTaskExpanded(tarea)">
             {{ tarea.descripcion }}
           </span>
-          <span 
-            *ngIf="tarea.descripcion.length > 100" 
-            class="text-link" 
-            style="color: blue; cursor: pointer; text-decoration: underline;"
-            (click)="toggleTaskExpansion(tarea)">
+          <span
+            *ngIf="tarea.descripcion.length > 100"
+            class="text-blue-500 underline cursor-pointer"
+            (click)="toggleTaskExpansion(tarea)"
+          >
             {{ isTaskExpanded(tarea) ? 'Ver menos' : 'Ver más' }}
           </span>
         </p>
+
+        <!-- Detalles adicionales -->
+        <div class="flex flex-col gap-1 text-sm text-gray-600">
+          <div class="flex items-center justify-between">
+            <span class="font-medium text-gray-700">Categoría:</span>
+            <span class="text-gray-500">{{ tarea.categoria }}</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="font-medium text-gray-700">Prioridad:</span>
+            <span
+              class="px-2 py-1 rounded-full text-white text-xs"
+              [ngClass]="{
+                'bg-red-500': tarea.prioridad === 'Alta',
+                'bg-yellow-400': tarea.prioridad === 'Media',
+                'bg-green-500': tarea.prioridad === 'Baja'
+              }"
+            >
+              {{ tarea.prioridad }}
+            </span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="font-medium text-gray-700">Asignado a:</span>
+            <span class="text-gray-500">{{ tarea.asignado }}</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>

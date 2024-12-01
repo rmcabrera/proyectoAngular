@@ -15,8 +15,7 @@
   <ng-template pTemplate="end">
     <div class="flex align-items-center gap-2">
       <p-avatar 
-          image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
-          shape="circle" />
+          [image]="avatarUrl" shape="circle"/>
       <span class="font-bold text-bluegray-50">
         {{ userName || 'Invitado' }}
       </span>

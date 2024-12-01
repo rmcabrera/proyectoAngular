@@ -12,6 +12,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { SliderModule } from 'primeng/slider';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { fakeAsync, tick } from '@angular/core/testing';
 
 describe('TaskFormComponent', () => {
   let component: TaskFormComponent;
@@ -90,6 +91,20 @@ describe('TaskFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
+
+  it('should initialize form correctly in ngOnInit', () => {
+    component.ngOnInit();
+  
+    fixture.detectChanges();
+  
+    expect(component.priorityOptions.length).toBeGreaterThan(0); 
+    expect(component.statusOptions.length).toBeGreaterThan(0);   
+    expect(component.categoriaOptions.length).toBeGreaterThan(0); 
+  
+    expect(component.taskForm).toBeDefined();
+    expect(component.taskForm.valid).toBeFalse(); 
+  });
+    
   it('should initialize form with task data on input change', () => {
     component.task = mockTask;
     component.ngOnChanges({
@@ -166,4 +181,18 @@ describe('TaskFormComponent', () => {
     expect(component.taskForm.pristine).toBeTrue(); 
     expect(component.taskForm.touched).toBeFalse(); 
   });
+
+  it('should emit false when onCloseDialog is called', () => {
+    spyOn(component.displayChange, 'emit');
+    component.onCloseDialog();
+    expect(component.displayChange.emit).toHaveBeenCalledWith(false);
+  });
+  
+  it('should set display to false when cancel is called', () => {
+    spyOn(component.displayChange, 'emit');
+    component.onCancel();
+    expect(component.displayChange.emit).toHaveBeenCalledWith(false);
+  });
+
+  
 });

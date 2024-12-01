@@ -9,6 +9,7 @@ import { LoginComponent } from './login.component';
 import { of } from 'rxjs';
 import { GoogleButtonComponent } from '../../../../ui/google-button/google-button.component';
 import { DividerModule } from 'primeng/divider';
+import { CheckboxModule } from 'primeng/checkbox';
 
 const firebaseConfig = {
   apiKey: 'your-api-key',
@@ -44,6 +45,7 @@ describe('LoginComponent', () => {
         GoogleButtonComponent,
         FormsModule,DividerModule,
         ToastrModule.forRoot(),
+        CheckboxModule,
         AngularFireModule.initializeApp(firebaseConfig)
       ],
       providers: [

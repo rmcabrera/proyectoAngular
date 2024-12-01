@@ -5,6 +5,7 @@ import { PriorityOption } from '../../../../core/models/priority-option.model';
 import { StatusOption } from '../../../../core/models/status-option.model';
 import { CategoryOption } from '../../../../core/models/category-option.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-task-form',
@@ -37,6 +38,7 @@ export class TaskFormComponent implements OnChanges {
   priorityOptions: PriorityOption[] = [];
   statusOptions: StatusOption[] = [];
   categoriaOptions: CategoryOption[] = [];
+  avatarUrl = environment.defaultAvatar;
 
   constructor(
     private taskOptionsService: TaskOptionsService,
@@ -68,7 +70,8 @@ export class TaskFormComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['task'] && changes['task'].currentValue) {
       this.taskForm.patchValue(this.task); 
-    }
+    }  
+    
   }
 
   onSave(): void {

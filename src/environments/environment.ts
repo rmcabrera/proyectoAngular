@@ -11,5 +11,6 @@ export const environment = {
         messagingSenderId : "469852807387",
         appId : "1:469852807387:web:c7758a95d63b133b15ecfe",
         measurementId: "G-FXSN1FRE0E"
-    }
+    },
+    defaultAvatar: 'https://www.w3schools.com/w3images/avatar2.png'
 }

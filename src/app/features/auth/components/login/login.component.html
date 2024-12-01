@@ -17,7 +17,7 @@
     <p-divider align="center">O</p-divider>
 
     <p class="p-text-center">Por favor ingresa tus datos</p>
-    <form (ngSubmit)="onSubmit()" class="p-fluid">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="p-fluid">
     
       <div class="p-field">
         <label for="email">Correo electrónico</label>
@@ -28,10 +28,13 @@
             type="email"
             pInputText
             placeholder="Ingresa tu correo electrónico"
-            [(ngModel)]="email"
-            name="email"
+            formControlName="email"
           />
         </span>
+        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="p-error">
+          <small *ngIf="loginForm.get('email')?.errors?.['required']">El correo es obligatorio.</small>
+          <small *ngIf="loginForm.get('email')?.errors?.['email']">Ingresa un correo válido.</small>
+        </div>
       </div>
 
       <div class="p-field p-mt-3">
@@ -43,10 +46,13 @@
             type="password"
             pInputText
             placeholder="Ingresa tu contraseña"
-            [(ngModel)]="password"
-            name="password"
+            formControlName="password"
           />
         </span>
+        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="p-error">
+          <small *ngIf="loginForm.get('password')?.errors?.['required']">La contraseña es obligatoria.</small>
+          <small *ngIf="loginForm.get('password')?.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.</small>
+        </div>
       </div>
 
       <div class="p-d-flex p-jc-between p-ai-center p-mt-3 p-mb-4">
@@ -54,11 +60,11 @@
           <p-checkbox
             inputId="remember"
             binary="true"
-            [(ngModel)]="rememberMe"
-            name="rememberMe"
+            formControlName="rememberMe"
           ></p-checkbox>
           <label for="remember">Recuérdame</label>
         </div>
+        
         <a [routerLink]="'/reset-password'" class="p-text-secondary">¿Olvidaste tu contraseña?</a>
       </div>
 
@@ -68,7 +74,6 @@
         label="Iniciar sesión"
         class="p-button p-button-rounded p-button-primary p-button-lg"
       ></button>
-
 
       <p class="p-text-center p-mt-3">
         ¿No tienes una cuenta? 

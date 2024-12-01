@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../core/services/auth/auth.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,7 +12,8 @@ export class SidebarComponent {
     @Input() visible: boolean = false;
     @Output() visibleChange = new EventEmitter<boolean>();
     userName: string | null = null; 
-
+    avatarUrl = environment.defaultAvatar;
+    
     constructor(private router: Router, private route: ActivatedRoute,
         private authService: AuthService
     ) {}

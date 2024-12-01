@@ -1,57 +1,60 @@
 <div class="register-container">
-    <div class="register-card p-shadow-3">
-  
-      <h2 class="p-text-center">Registro de Usuario</h2>
-      <p class="p-text-center">Por favor ingresa tus datos</p>
-      <form (ngSubmit)="onRegister()" class="p-fluid">
- 
-        <div class="p-field">
-          <label for="email">Correo Electrónico</label>
-          <span class="p-input-icon-left">
-            <i class="pi pi-envelope"></i>
-            <input
-              type="email"
-              id="email"
-              pInputText
-              placeholder="Email"
-              [(ngModel)]="email"
-              name="email"
-              required
-            />
-          </span>
+  <div class="register-card p-shadow-3">
+
+    <h2 class="p-text-center">Registro de Usuario</h2>
+    <p class="p-text-center">Por favor ingresa tus datos</p>
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="p-fluid">
+
+      <div class="p-field">
+        <label for="email">Correo Electrónico</label>
+        <span class="p-input-icon-left">
+          <i class="pi pi-envelope"></i>
+          <input
+            type="email"
+            id="email"
+            pInputText
+            placeholder="Email"
+            formControlName="email"
+          />
+        </span>
+        <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="p-error">
+          <small *ngIf="registerForm.get('email')?.errors?.['required']">El correo es obligatorio.</small>
+          <small *ngIf="registerForm.get('email')?.errors?.['email']">Ingresa un correo válido.</small>
         </div>
-        
-        <div class="p-field">
-          <label for="password">Contraseña</label>
-          <span class="p-input-icon-left">
-            <i class="pi pi-lock"></i>
-            <input
-              type="password"
-              id="password"
-              pInputText
-              placeholder="Password"
-              [(ngModel)]="password"
-              name="password"
-              required
-            />
-          </span>
+      </div>
+      
+      <div class="p-field">
+        <label for="password">Contraseña</label>
+        <span class="p-input-icon-left">
+          <i class="pi pi-lock"></i>
+          <input
+            type="password"
+            id="password"
+            pInputText
+            placeholder="Password"
+            formControlName="password"
+          />
+        </span>
+        <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="p-error">
+          <small *ngIf="registerForm.get('password')?.errors?.['required']">La contraseña es obligatoria.</small>
+          <small *ngIf="registerForm.get('password')?.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.</small>
         </div>
-  
-        <div *ngIf="errorMessage" class="error-message">
-          {{ errorMessage }}
-        </div>
-  
-        <button
-          type="submit"
-          pButton
-          label="Registrar"
-          class="p-button p-button-rounded p-button-primary p-button-lg"
-        ></button>
-      </form>
-  
-      <p class="p-text-center p-mt-3">
-        <a [routerLink]="'/login'" class="p-text-secondary">Ya tengo cuenta, regresar al Login</a>
-      </p>
-    </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+
+      <button
+        type="submit"
+        pButton
+        label="Registrar"
+        class="p-button p-button-rounded p-button-primary p-button-lg"
+      ></button>
+    </form>
+
+    <p class="p-text-center p-mt-3">
+      <a [routerLink]="'/login'" class="p-text-secondary">Ya tengo cuenta, regresar al Login</a>
+    </p>
   </div>
-  
+</div>

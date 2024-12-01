@@ -1,39 +1,43 @@
-
 .kanban-board {
-    display: flex;
-    gap: 20px;
-  }
-  .kanban-column {
-    flex: 1;
-    background: #f4f4f4;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  .task-list {
-    min-height: 100px;
-    padding: 10px;
-    background: #fff;
-    border-radius: 5px;
-    border: 1px dashed #ccc;
-  }
-  .task-card {
-    background: #e3f2fd;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  }
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
 
-  .kanban-column.pendiente {
-    background-color: #f8d7da; 
-  }
-  
-  .kanban-column.en-progreso {
-    background-color: #fff3cd; 
-  }
-  
-  .kanban-column.completada {
-    background-color: #d4edda; 
-  }
-  
-  
+.kanban-column {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.task-list {
+  padding: 16px;
+  min-height: 200px;
+  background-color: #f7fafc;
+  border-radius: 8px;
+}
+
+.task-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+  border-left: 4px solid transparent;
+  transition: transform 0.2s ease-in-out;
+}
+
+.task-card:hover {
+  transform: scale(1.05);
+}
+
+.bg-red-500 {
+  background-color: #f56565;
+}
+
+.bg-yellow-400 {
+  background-color: #ecc94b;
+}
+
+.bg-green-500 {
+  background-color: #48bb78;
+}

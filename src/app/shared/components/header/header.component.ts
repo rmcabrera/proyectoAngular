@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { ToolbarModule } from 'primeng/toolbar';
 import { AuthService } from '../../../core/services/auth/auth.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,7 @@ export class HeaderComponent {
   @Output() sidebarToggle = new EventEmitter<void>();
 
   userName: string | null = null; 
-
+  avatarUrl = environment.defaultAvatar;
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
