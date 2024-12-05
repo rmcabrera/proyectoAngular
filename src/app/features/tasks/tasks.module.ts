@@ -21,7 +21,7 @@ import { BadgeModule } from 'primeng/badge';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { TaskKanbanBoardComponent } from './pages/task-kanban-board/task-kanban-board.component'; 
 import { DragDropModule } from '@angular/cdk/drag-drop'; 
-
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -52,6 +52,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     ProgressBarModule,
     DragDropModule,
     ReactiveFormsModule,
+    ToastrModule
   ],
   exports : [
     TableModule,

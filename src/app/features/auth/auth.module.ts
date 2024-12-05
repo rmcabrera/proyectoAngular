@@ -14,6 +14,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { GoogleButtonComponent } from '../../ui/google-button/google-button.component';
 import { DividerModule } from 'primeng/divider'
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { DividerModule } from 'primeng/divider'
     ButtonModule, 
     CheckboxModule,
     GoogleButtonComponent,
-    DividerModule
+    DividerModule,
+    ToastrModule
   ],
   
 })

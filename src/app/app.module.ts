@@ -1,53 +1,32 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Importa BrowserAnimationsModule aquí
-
 import { AngularFireModule} from '@angular/fire/compat';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found/page-not-found.component';
-import { AuthService } from './core/services/auth/auth.service';
-import { AuthGuard } from './core/guards/auth.guard';
-import { TaskModule } from './features/tasks/tasks.module';
-import { AuthModule } from './features/auth/auth.module';
 import { environment } from '../environments/environment';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
 import { SharedsModule } from './shared/shareds.module';
-import { PanelModule } from 'primeng/panel';
 import { ToastrModule } from 'ngx-toastr';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-import { GoogleButtonComponent } from './ui/google-button/google-button.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
-    TaskModule,
     SharedsModule,
-    ButtonModule,
-    CardModule,
-    AuthModule,
-    PanelModule,
-    GoogleButtonComponent,
     AngularFireModule.initializeApp(environment.firebase),
     ToastrModule.forRoot(),  
+    BrowserAnimationsModule,
+    CoreModule
   ],
   exports : [
     
   ],
   providers: [
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore()),
-    AuthService, 
-    AuthGuard,
+  
     provideClientHydration(),
   ],
   bootstrap: [AppComponent]
