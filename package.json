@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build:href": "ng build --base-href ./login",
+    "build:href": "ng build --base-href ./",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:proyectoFinal": "node dist/proyecto-final/server/server.mjs"
