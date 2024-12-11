@@ -1,0 +1,10 @@
+{
+  "routes": [
+    "/login",
+    "/main",
+    "/main/dashboard",
+    "/main/kanban",
+    "/register",
+    "/reset-password"
+  ]
+}
